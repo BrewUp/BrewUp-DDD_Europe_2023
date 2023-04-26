@@ -17,8 +17,8 @@ public class Order_CreateBuyOrderSuccessful : CommandSpecification<CreateBuyOrde
 
 	private DateTime _date;
 
-	private IEnumerable<OrderLine> _lines;
-	//private IList<OrderLine> _lines;
+	//private IEnumerable<OrderLine> _lines;
+	private IList<OrderLine> _lines;
 
 	public Order_CreateBuyOrderSuccessful()
 	{
@@ -26,24 +26,7 @@ public class Order_CreateBuyOrderSuccessful : CommandSpecification<CreateBuyOrde
 		_supplierId = new SupplierId(Guid.NewGuid());
 		_date = DateTime.Today;
 
-		//_lines = new List<OrderLine>();
-		//_lines.Add(new OrderLine
-		//{
-		//	ProductId = new ProductId(Guid.NewGuid()),
-		//	Title = "Product 1",
-		//	Quantity = new Quantity() { UnitOfMeasure = "N.", Value = 1 },
-		//	Price = new Price() { Currency = "EUR", Value = 1 }
-		//});
-		//_lines.Add(new OrderLine
-		//{
-		//	ProductId = new ProductId(Guid.NewGuid()),
-		//	Title = "Product 2",
-		//	Quantity = new Quantity() { UnitOfMeasure = "N.", Value = 2 },
-		//	Price = new Price() { Currency = "EUR", Value = 2 }
-		//});
-
-		_lines = Enumerable.Empty<OrderLine>();
-		_lines = _lines.Concat(new List<OrderLine>()
+		_lines = new List<OrderLine>()
 		{
 			new()
 			{
@@ -59,7 +42,7 @@ public class Order_CreateBuyOrderSuccessful : CommandSpecification<CreateBuyOrde
 				Quantity = new Quantity() { UnitOfMeasure = "N.", Value = 2 },
 				Price = new Price() { Currency = "EUR", Value = 2 }
 			}
-		});
+		};
 	}
 
 	protected override IEnumerable<DomainEvent> Given()

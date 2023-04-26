@@ -8,6 +8,13 @@
 
   <ItemGroup>
     <Folder Include="MongoDb\" />
+    <Folder Include="RabbitMq\Commands\" />
+    <Folder Include="RabbitMq\Events\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Muflone.Eventstore" Version="6.1.1" />
+    <PackageReference Include="Muflone.Transport.RabbitMQ" Version="6.1.2" />
   </ItemGroup>
 
 </Project>
