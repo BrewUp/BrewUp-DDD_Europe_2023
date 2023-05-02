@@ -1,4 +1,4 @@
-﻿namespace Brewup.Purchases.Rest.BindingModels;
+﻿namespace Brewup.Purchases.ApplicationService.BindingModels;
 
 public class Price
 {

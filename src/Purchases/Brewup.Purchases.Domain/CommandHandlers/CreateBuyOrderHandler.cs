@@ -16,7 +16,7 @@ public class CreateBuyOrderHandler : CommandHandlerAsync<CreateBuyOrder>
 	public override async Task HandleAsync(CreateBuyOrder command, CancellationToken cancellationToken = default)
 	{
 		var aggregate = Order.Create(new OrderId(command.AggregateId.Value), command.SupplierId, command.Date,
-			command.Lines.ToEntities());
+			command.Lines);
 		Logger.LogInformation($"Order created aggregateId: {aggregate.Id.Value}");
 		await Repository.SaveAsync(aggregate, Guid.NewGuid());
 	}
