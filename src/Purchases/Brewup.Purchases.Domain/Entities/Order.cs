@@ -23,7 +23,7 @@ public class Order : AggregateRoot
 	private Order(OrderId id, SupplierId supplierId, DateTime date, IEnumerable<SharedKernel.DTOs.OrderLine> lines)
 	{
 		//Invariants checks
-
+		
 
 		/////////
 		RaiseEvent(new BuyOrderCreated(id, supplierId, date, lines));

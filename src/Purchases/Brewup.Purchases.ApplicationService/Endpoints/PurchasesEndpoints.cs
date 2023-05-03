@@ -19,6 +19,7 @@ public static class PurchasesEndpoints
 			return Results.BadRequest(validationHandler.Errors);
 
 		var orderId = await purchasesOrchestrator.CreateOrderAsync(body, cancellationToken);
+
 		return Results.Created($"/api/v1/Order/{orderId}", orderId);
 	}
 }

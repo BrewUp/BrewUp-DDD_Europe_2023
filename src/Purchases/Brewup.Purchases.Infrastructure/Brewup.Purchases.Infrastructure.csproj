@@ -7,14 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="MongoDb\" />
     <Folder Include="RabbitMq\Commands\" />
     <Folder Include="RabbitMq\Events\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
     <PackageReference Include="Muflone.Eventstore" Version="6.1.1" />
     <PackageReference Include="Muflone.Transport.RabbitMQ" Version="6.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Brewup.Purchases.SharedKernel\Brewup.Purchases.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

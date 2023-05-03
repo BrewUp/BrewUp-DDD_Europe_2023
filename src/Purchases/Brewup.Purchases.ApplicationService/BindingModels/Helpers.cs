@@ -20,4 +20,6 @@ public static class Helpers
 			}
 		};
 	}
+	
+	public static IEnumerable<SharedKernel.DTOs.OrderLine> ToDto(this IEnumerable<OrderLine> orderLines) => orderLines.Select(ToDto);
 }

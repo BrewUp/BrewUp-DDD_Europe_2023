@@ -4,10 +4,13 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>1e06e6c3-00bf-47f3-b72e-b70ca13c0b51</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
@@ -16,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Brewup.Purchases.ApplicationService\Brewup.Purchases.ApplicationService.csproj" />
+    <ProjectReference Include="..\Brewup.Purchases.Infrastructure\Brewup.Purchases.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

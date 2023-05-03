@@ -16,9 +16,10 @@ public sealed class PurchasesOrchestrator : IPurchasesOrchestrator
 
 	public async Task<string> CreateOrderAsync(Order order, CancellationToken cancellationToken)
 	{
+		//Application level validation
 		var createOrder = new CreateBuyOrder(new OrderId(order.Id),
 			new SupplierId(order.SupplierId), order.Date,
-			order.Lines.Select(l => l.ToDto()));
+			order.Lines.ToDto()); 
 
 		//await _serviceBus.SendAsync(createOrder, cancellationToken);
 
