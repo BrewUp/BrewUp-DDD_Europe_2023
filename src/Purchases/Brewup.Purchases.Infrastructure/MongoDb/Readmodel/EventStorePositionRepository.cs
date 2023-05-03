@@ -1,4 +1,5 @@
-﻿using Brewup.Purchases.SharedKernel.DTOs;
+﻿using Brewup.Purchases.ApplicationService.BindingModels;
+using Brewup.Purchases.SharedKernel.DTOs;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -12,13 +13,13 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 	private readonly IMongoDatabase database;
 	private readonly ILogger<EventStorePositionRepository> logger;
 
-	public EventStorePositionRepository(ILogger<EventStorePositionRepository> logger, string connectionString)
+	public EventStorePositionRepository(ILogger<EventStorePositionRepository> logger, MongoDbSettings mongoDbSettings)
 	{
 		this.logger = logger;
 		BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
-		var client = new MongoClient(connectionString);
+		var client = new MongoClient(mongoDbSettings.ConnectionString);
 		database = client.GetDatabase(
-			"CqrsMovie_EventStore_Position"); //Best to inject a class with all parameter and not being coupled like this
+			mongoDbSettings.DatabaseName);
 	}
 
 	public async Task<IEventStorePosition> GetLastPosition()
@@ -33,7 +34,7 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 			if (result == null)
 			{
 				result = new LastEventPosition
-					{ Id = Constants.LastEventPositionKey, CommitPosition = -1, PreparePosition = -1 };
+				{ Id = Constants.LastEventPositionKey, CommitPosition = -1, PreparePosition = -1 };
 				await collection.InsertOneAsync(result);
 			}
 
@@ -58,7 +59,8 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 			{
 				entity = new LastEventPosition
 				{
-					Id = Constants.LastEventPositionKey, CommitPosition = position.CommitPosition,
+					Id = Constants.LastEventPositionKey,
+					CommitPosition = position.CommitPosition,
 					PreparePosition = position.PreparePosition
 				};
 				await collection.InsertOneAsync(entity);
