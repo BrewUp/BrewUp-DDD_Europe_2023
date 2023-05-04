@@ -58,7 +58,7 @@ public class Order_CreateBuyOrderSuccessful : CommandSpecification<CreateBuyOrde
 
 	protected override ICommandHandlerAsync<CreateBuyOrder> OnHandler()
 	{
-		return new CreateBuyOrderHandler(Repository, new NullLoggerFactory());
+		return new CreateBuyOrderHandlerAsync(Repository, new NullLoggerFactory());
 	}
 
 	protected override IEnumerable<DomainEvent> Expect()

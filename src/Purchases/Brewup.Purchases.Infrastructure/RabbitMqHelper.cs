@@ -1,4 +1,6 @@
 ﻿using Brewup.Purchases.ApplicationService.BindingModels;
+using Brewup.Purchases.Infrastructure.RabbitMq.Commands;
+using Brewup.Purchases.Messages.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
@@ -30,7 +32,10 @@ public static class RabbitMqHelper
 				rabbitMqSettings.ExchangeCommandName);
 		var mufloneConnectionFactory = new MufloneConnectionFactory(rabbitMQConfiguration, loggerFactory!);
 
-		var consumers = new List<IConsumer>();
+		var consumers = new List<IConsumer>
+		{
+			new CreateBuyOrderConsumer(repository!, rabbitMQReference with { QueueCommandsName = nameof(CreateBuyOrder)}, mufloneConnectionFactory, loggerFactory!),
+		};
 
 		services.AddMufloneTransportRabbitMQ(rabbitMQConfiguration, rabbitMQReference, consumers);
 
