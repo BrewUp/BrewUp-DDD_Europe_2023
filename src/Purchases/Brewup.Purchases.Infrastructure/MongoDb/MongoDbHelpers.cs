@@ -9,7 +9,7 @@ using Muflone.Eventstore.Persistence;
 
 namespace Brewup.Purchases.Infrastructure.MongoDb
 {
-	public static class MongoDBHelpers
+    public static class MongoDBHelpers
 	{
 		public static IServiceCollection AddMongoDb(this IServiceCollection services,
 			MongoDbSettings mongoDbSettings)
