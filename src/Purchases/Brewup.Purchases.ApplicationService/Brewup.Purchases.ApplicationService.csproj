@@ -16,6 +16,7 @@
     <Folder Include="Endpoints\" />
     <Folder Include="Abstracts\" />
     <Folder Include="Concretes\" />
+    <Folder Include="EventHandlers\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 

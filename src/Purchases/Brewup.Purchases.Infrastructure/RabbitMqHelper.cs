@@ -1,6 +1,8 @@
 ﻿using Brewup.Purchases.ApplicationService.BindingModels;
 using Brewup.Purchases.Infrastructure.RabbitMq.Commands;
+using Brewup.Purchases.Infrastructure.RabbitMq.Events;
 using Brewup.Purchases.Messages.Commands;
+using Brewup.Purchases.Messages.Events;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
@@ -35,6 +37,7 @@ public static class RabbitMqHelper
 		var consumers = new List<IConsumer>
 		{
 			new CreateBuyOrderConsumer(repository!, rabbitMQReference with { QueueCommandsName = nameof(CreateBuyOrder)}, mufloneConnectionFactory, loggerFactory!),
+			new BuyOrderCreatedConsumer(serviceProvider, rabbitMQReference with{ QueueEventsName = nameof(BuyOrderCreated)}, mufloneConnectionFactory, loggerFactory!)
 		};
 
 		services.AddMufloneTransportRabbitMQ(rabbitMQConfiguration, rabbitMQReference, consumers);

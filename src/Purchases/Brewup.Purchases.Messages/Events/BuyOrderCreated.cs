@@ -4,7 +4,7 @@ using Muflone.Messages.Events;
 
 namespace Brewup.Purchases.Messages.Events;
 
-public class BuyOrderCreated : DomainEvent
+public sealed class BuyOrderCreated : DomainEvent
 {
 	public SupplierId SupplierId { get; }
 	public DateTime Date { get; }
