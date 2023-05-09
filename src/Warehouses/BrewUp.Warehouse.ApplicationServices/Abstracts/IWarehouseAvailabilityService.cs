@@ -1,8 +1,8 @@
-﻿using BrewUp.Warehouse.ApplicationServices.DTOs;
+using BrewUp.Warehouse.ApplicationServices.DTOs;
 
 namespace BrewUp.Warehouse.ApplicationServices.Abstracts;
 
-public interface IWarehouseOrchestrator
+internal interface IWarehouseAvailabilityService
 {
     Task<BeerAvailabilityDTO> GetBeerAvailabilityAsync(CancellationToken cancellationToken);
 }

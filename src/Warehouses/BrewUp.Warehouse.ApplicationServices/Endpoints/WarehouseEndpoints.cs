@@ -7,7 +7,7 @@ public static class WarehouseEndpoints
 {
     public static async Task<IResult> HandleGetAvailability(IWarehouseOrchestrator warehouseOrchestrator, CancellationToken cancellationToken)
     {
-        var availability = await warehouseOrchestrator.GetBeerAvailabilityAsync();
+        var availability = await warehouseOrchestrator.GetBeerAvailabilityAsync(default);
         
         return Results.Ok(availability);
     }

@@ -1,11 +1,11 @@
-﻿using BrewUp.Warehouse.ApplicationServices.Abstracts;
+using BrewUp.Warehouse.ApplicationServices.Abstracts;
 using BrewUp.Warehouse.ApplicationServices.DTOs;
 
 namespace BrewUp.Warehouse.ApplicationServices.Concretes;
 
-internal class WarehouseOrchestrator : IWarehouseOrchestrator
+internal class WarehouseAvailabilityService : IWarehouseAvailabilityService
 {
-    public Task<BeerAvailabilityDTO> GetBeerAvailabilityAsync()
+    public Task<BeerAvailabilityDTO> GetBeerAvailabilityAsync(CancellationToken cancellationToken)
     {
         return Task.FromResult(new BeerAvailabilityDTO
         {
