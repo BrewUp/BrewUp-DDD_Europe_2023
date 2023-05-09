@@ -1,4 +1,5 @@
-﻿using BrewUp.Warehouse.ApplicationServices.Endpoints;
+﻿using BrewUp.Warehouse.ApplicationServices;
+using BrewUp.Warehouse.ApplicationServices.Endpoints;
 
 namespace BrewUp.Wharehouses.Rest.Modules;
 
@@ -8,6 +9,8 @@ public class WharehouseModule : IModule
     public int Order => 0;
     public IServiceCollection RegisterModule(WebApplicationBuilder builder)
     {
+        builder.Services.AddWarehouseServices();
+        
         return builder.Services;
     }
 
