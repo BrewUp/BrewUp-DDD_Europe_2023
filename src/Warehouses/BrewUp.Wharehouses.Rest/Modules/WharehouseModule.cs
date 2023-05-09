@@ -1,4 +1,6 @@
-﻿namespace BrewUp.Wharehouses.Rest.Modules;
+﻿using BrewUp.Warehouse.ApplicationServices.Endpoints;
+
+namespace BrewUp.Wharehouses.Rest.Modules;
 
 public class WharehouseModule : IModule
 {
@@ -14,7 +16,7 @@ public class WharehouseModule : IModule
         var mapGroup = endpoints.MapGroup("/api/v1/")
             .WithTags("Warehouses");
         
-        mapGroup.MapGet("/", () => Results.Ok())
+        mapGroup.MapGet("/", WarehouseEndpoints.HandleGetAvailability)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status200OK)
             .WithName("GetAvailability");
