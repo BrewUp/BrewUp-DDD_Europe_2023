@@ -5,9 +5,24 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "90 Presentation", "90 Presentation", "{11FE64B2-51EE-4417-A26A-471352B25854}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewUp.Wharehouses.Rest", "BrewUp.Wharehouses.Rest\BrewUp.Wharehouses.Rest.csproj", "{38D1AA29-E081-45A7-858F-A483AC6EE35A}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38D1AA29-E081-45A7-858F-A483AC6EE35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38D1AA29-E081-45A7-858F-A483AC6EE35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38D1AA29-E081-45A7-858F-A483AC6EE35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38D1AA29-E081-45A7-858F-A483AC6EE35A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{38D1AA29-E081-45A7-858F-A483AC6EE35A} = {11FE64B2-51EE-4417-A26A-471352B25854}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A6CB3BB9-E89B-4BDD-A130-C50FAE25FA4A}
