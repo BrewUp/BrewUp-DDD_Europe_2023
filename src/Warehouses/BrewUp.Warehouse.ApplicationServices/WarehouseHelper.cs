@@ -1,6 +1,5 @@
 ﻿using BrewUp.Warehouse.ApplicationServices.Abstracts;
 using BrewUp.Warehouse.ApplicationServices.Concretes;
-using BrewUp.Warehouse.ApplicationServices.Endpoints;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BrewUp.Warehouse.ApplicationServices;

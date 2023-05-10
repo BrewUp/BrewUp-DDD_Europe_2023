@@ -12,7 +12,7 @@ internal class WarehouseOrchestrator : IWarehouseOrchestrator
         _warehouseAvailabilityService = warehouseAvailabilityService;
     }
 
-    public Task<BeerAvailabilityDTO> GetBeerAvailabilityAsync(CancellationToken cancellationToken)
+    public Task<BeerAvailabilityModelBase> GetBeerAvailabilityAsync(CancellationToken cancellationToken)
     {
         return _warehouseAvailabilityService.GetBeerAvailabilityAsync(default);
     }

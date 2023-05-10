@@ -4,5 +4,5 @@ namespace BrewUp.Warehouse.ApplicationServices.Abstracts;
 
 internal interface IWarehouseAvailabilityService
 {
-    Task<BeerAvailabilityDTO> GetBeerAvailabilityAsync(CancellationToken cancellationToken);
+    Task<BeerAvailabilityModelBase> GetBeerAvailabilityAsync(CancellationToken cancellationToken);
 }

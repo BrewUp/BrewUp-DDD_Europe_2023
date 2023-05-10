@@ -1,6 +1,9 @@
+using BrewUp.Warehouse.ReadModel;
+using BrewUp.Warehouse.ReadModel.DTOs;
+
 namespace BrewUp.Warehouse.ApplicationServices.DTOs;
 
-public class BeerAvailabilityDTO
+public class BeerAvailabilityModelBase : ModelBase
 {
     public string BeerId { get; set; } = string.Empty;
     
