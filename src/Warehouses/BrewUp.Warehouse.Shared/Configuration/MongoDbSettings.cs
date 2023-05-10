@@ -1,4 +1,4 @@
-﻿namespace BrewUp.Warehouse.ApplicationServices.DTOs;
+﻿namespace BrewUp.Warehouse.Shared.Configuration;
 
 public class MongoDbSettings
 {

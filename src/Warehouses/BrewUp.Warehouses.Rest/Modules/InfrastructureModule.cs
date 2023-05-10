@@ -1,5 +1,5 @@
-﻿using BrewUp.Warehouse.ApplicationServices.DTOs;
-using BrewUp.Warehouse.Infrastructure.MongoDb;
+﻿using BrewUp.Warehouse.Infrastructure.MongoDb;
+using BrewUp.Warehouse.Shared.Configuration;
 
 namespace BrewUp.Warehouses.Rest.Modules;
 

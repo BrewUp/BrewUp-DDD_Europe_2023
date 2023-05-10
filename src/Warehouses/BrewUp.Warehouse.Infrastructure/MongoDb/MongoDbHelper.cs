@@ -1,5 +1,5 @@
-﻿using BrewUp.Warehouse.ApplicationServices.DTOs;
-using BrewUp.Warehouse.ReadModel;
+﻿using BrewUp.Warehouse.ReadModel;
+using BrewUp.Warehouse.Shared.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
