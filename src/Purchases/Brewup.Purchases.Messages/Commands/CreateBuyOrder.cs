@@ -10,7 +10,7 @@ public class CreateBuyOrder : Command
 	public DateTime Date { get; }
 	public IEnumerable<OrderLine> Lines { get; }
 
-	public CreateBuyOrder(OrderId aggregateId, SupplierId supplierId, DateTime date, IEnumerable<OrderLine> lines) :
+	public CreateBuyOrder(BuyOrderId aggregateId, SupplierId supplierId, DateTime date, IEnumerable<OrderLine> lines) :
 		base(aggregateId)
 	{
 		SupplierId = supplierId;

@@ -10,7 +10,7 @@ public sealed class BuyOrderCreated : DomainEvent
 	public DateTime Date { get; }
 	public IEnumerable<OrderLine> Lines { get; }
 
-	public BuyOrderCreated(OrderId aggregateId, SupplierId supplierId, DateTime date, IEnumerable<OrderLine> lines) :
+	public BuyOrderCreated(BuyOrderId aggregateId, SupplierId supplierId, DateTime date, IEnumerable<OrderLine> lines) :
 		base(aggregateId)
 	{
 		SupplierId = supplierId;

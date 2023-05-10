@@ -12,7 +12,7 @@ namespace Brewup.Purchases.Domain.Tests.Entities;
 
 public class Order_CreateBuyOrderSuccessful : CommandSpecification<CreateBuyOrder>
 {
-	private readonly OrderId _orderId;
+	private readonly BuyOrderId _buyOrderId;
 	private readonly SupplierId _supplierId;
 
 	private readonly DateTime _date;
@@ -22,7 +22,7 @@ public class Order_CreateBuyOrderSuccessful : CommandSpecification<CreateBuyOrde
 
 	public Order_CreateBuyOrderSuccessful()
 	{
-		_orderId = new OrderId(Guid.NewGuid());
+		_buyOrderId = new BuyOrderId(Guid.NewGuid());
 		_supplierId = new SupplierId(Guid.NewGuid());
 		_date = DateTime.Today;
 
@@ -53,7 +53,7 @@ public class Order_CreateBuyOrderSuccessful : CommandSpecification<CreateBuyOrde
 
 	protected override CreateBuyOrder When()
 	{
-		return new CreateBuyOrder(_orderId, _supplierId, _date, _lines);
+		return new CreateBuyOrder(_buyOrderId, _supplierId, _date, _lines);
 	}
 
 	protected override ICommandHandlerAsync<CreateBuyOrder> OnHandler()
@@ -63,6 +63,6 @@ public class Order_CreateBuyOrderSuccessful : CommandSpecification<CreateBuyOrde
 
 	protected override IEnumerable<DomainEvent> Expect()
 	{
-		yield return new BuyOrderCreated(_orderId, _supplierId, _date, _lines);
+		yield return new BuyOrderCreated(_buyOrderId, _supplierId, _date, _lines);
 	}
 }

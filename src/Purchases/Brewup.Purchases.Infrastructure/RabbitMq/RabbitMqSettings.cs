@@ -1,10 +1,4 @@
-﻿namespace Brewup.Purchases.ApplicationService.BindingModels;
-
-public class MongoDbSettings
-{
-	public string ConnectionString { get; set; } = string.Empty;
-	public string DatabaseName { get; set; } = string.Empty;
-}
+﻿namespace Brewup.Purchases.Infrastructure.RabbitMq;
 
 public class RabbitMqSettings
 {

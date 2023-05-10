@@ -1,4 +1,4 @@
-﻿using Brewup.Purchases.ApplicationService.BindingModels;
+﻿using Brewup.Purchases.Infrastructure.RabbitMq;
 using Brewup.Purchases.Infrastructure.RabbitMq.Commands;
 using Brewup.Purchases.Infrastructure.RabbitMq.Events;
 using Brewup.Purchases.Messages.Commands;

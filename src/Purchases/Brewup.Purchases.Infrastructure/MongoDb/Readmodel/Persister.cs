@@ -1,4 +1,5 @@
-﻿using Brewup.Purchases.SharedKernel.ReadModel;
+﻿using Brewup.Purchases.ReadModel;
+using Brewup.Purchases.ReadModel.Entities;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
@@ -15,7 +16,7 @@ public class Persister : IPersister
 		logger = loggerFactory.CreateLogger(GetType());
 	}
 
-	public async Task<T> GetBy<T>(string id) where T : Dto
+	public async Task<T> GetBy<T>(string id) where T : EntityBase
 	{
 		var type = typeof(T).Name;
 		try
@@ -31,7 +32,7 @@ public class Persister : IPersister
 		}
 	}
 
-	public async Task Insert<T>(T entity) where T : Dto
+	public async Task Insert<T>(T entity) where T : EntityBase
 	{
 		var type = typeof(T).Name;
 		try
@@ -46,7 +47,7 @@ public class Persister : IPersister
 		}
 	}
 
-	public async Task Update<T>(T entity) where T : Dto
+	public async Task Update<T>(T entity) where T : EntityBase
 	{
 		var type = typeof(T).Name;
 		try
@@ -61,7 +62,7 @@ public class Persister : IPersister
 		}
 	}
 
-	public async Task Delete<T>(T entity) where T : Dto
+	public async Task Delete<T>(T entity) where T : EntityBase
 	{
 		var type = typeof(T).Name;
 		try

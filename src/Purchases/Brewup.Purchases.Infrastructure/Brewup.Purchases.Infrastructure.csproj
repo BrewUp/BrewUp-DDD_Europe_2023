@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Brewup.Purchases.ApplicationService\Brewup.Purchases.ApplicationService.csproj" />
     <ProjectReference Include="..\Brewup.Purchases.Domain\Brewup.Purchases.Domain.csproj" />
+    <ProjectReference Include="..\Brewup.Purchases.ReadModel\Brewup.Purchases.ReadModel.csproj" />
     <ProjectReference Include="..\Brewup.Purchases.SharedKernel\Brewup.Purchases.SharedKernel.csproj" />
   </ItemGroup>
 

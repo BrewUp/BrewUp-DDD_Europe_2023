@@ -14,14 +14,12 @@
 
   <ItemGroup>
     <Folder Include="Endpoints\" />
-    <Folder Include="Abstracts\" />
-    <Folder Include="Concretes\" />
-    <Folder Include="EventHandlers\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Brewup.Purchases.Messages\Brewup.Purchases.Messages.csproj" />
+    <ProjectReference Include="..\Brewup.Purchases.ReadModel\Brewup.Purchases.ReadModel.csproj" />
   </ItemGroup>
 
 </Project>

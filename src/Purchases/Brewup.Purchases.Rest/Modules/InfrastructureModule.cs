@@ -1,6 +1,6 @@
-﻿using Brewup.Purchases.ApplicationService.BindingModels;
-using Brewup.Purchases.Infrastructure;
+﻿using Brewup.Purchases.Infrastructure;
 using Brewup.Purchases.Infrastructure.MongoDb;
+using Brewup.Purchases.Infrastructure.RabbitMq;
 using Muflone.Eventstore;
 
 namespace Brewup.Purchases.Rest.Modules;

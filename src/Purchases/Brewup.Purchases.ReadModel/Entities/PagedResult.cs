@@ -1,4 +1,4 @@
-﻿namespace Brewup.Purchases.SharedKernel.ReadModel
+﻿namespace Brewup.Purchases.ReadModel.Entities
 {
     public class PagedResult<T>
     {

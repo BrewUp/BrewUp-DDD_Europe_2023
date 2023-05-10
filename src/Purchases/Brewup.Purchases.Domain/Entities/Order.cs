@@ -10,7 +10,7 @@ public class Order : AggregateRoot
 	private DateTime _date;
 	private IEnumerable<OrderLine> _lines;
 
-	public static Order Create(OrderId id, SupplierId supplierId, DateTime date, IEnumerable<SharedKernel.DTOs.OrderLine> lines)
+	public static Order Create(BuyOrderId id, SupplierId supplierId, DateTime date, IEnumerable<SharedKernel.DTOs.OrderLine> lines)
 	{
 		return new Order(id, supplierId, date, lines);
 	}
@@ -20,7 +20,7 @@ public class Order : AggregateRoot
 	{
 	}
 
-	private Order(OrderId id, SupplierId supplierId, DateTime date, IEnumerable<SharedKernel.DTOs.OrderLine> lines)
+	private Order(BuyOrderId id, SupplierId supplierId, DateTime date, IEnumerable<SharedKernel.DTOs.OrderLine> lines)
 	{
 		//Invariants checks
 		

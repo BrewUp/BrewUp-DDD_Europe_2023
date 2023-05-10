@@ -1,8 +1,7 @@
-﻿using Brewup.Purchases.ApplicationService.Abstracts;
-using Brewup.Purchases.ApplicationService.Concretes;
-using Brewup.Purchases.ApplicationService.EventHandlers;
-using Brewup.Purchases.ApplicationService.Validators;
+﻿using Brewup.Purchases.ApplicationService.Validators;
 using Brewup.Purchases.Messages.Events;
+using Brewup.Purchases.ReadModel.EventHandlers;
+using Brewup.Purchases.ReadModel.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +18,7 @@ public static class PurchasesHelper
 
 		services.AddSingleton<ValidationHandler>();
 
+		services.AddScoped<IBuyOrderService, BuyOrderService>();
 		services.AddScoped<IPurchasesOrchestrator, PurchasesOrchestrator>();
 		services.AddScoped<IDomainEventHandlerAsync<BuyOrderCreated>, BuyOrderCreatedEventHandler>();
 

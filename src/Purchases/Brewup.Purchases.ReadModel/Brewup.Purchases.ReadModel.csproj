@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Brewup.Purchases.Messages\Brewup.Purchases.Messages.csproj" />
+  </ItemGroup>
+
 </Project>

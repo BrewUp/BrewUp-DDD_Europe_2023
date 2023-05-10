@@ -5,7 +5,7 @@ namespace Brewup.Purchases.Messages.Events;
 
 public class BuyOrderReceived : DomainEvent
 {
-	public BuyOrderReceived(OrderId aggregateId) : base(aggregateId)
+	public BuyOrderReceived(BuyOrderId aggregateId) : base(aggregateId)
 	{
 	}
 }

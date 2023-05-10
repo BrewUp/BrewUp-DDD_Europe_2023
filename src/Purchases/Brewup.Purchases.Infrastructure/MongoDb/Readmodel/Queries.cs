@@ -1,11 +1,12 @@
 ﻿using System.Linq.Expressions;
-using Brewup.Purchases.SharedKernel.ReadModel;
+using Brewup.Purchases.ReadModel;
+using Brewup.Purchases.ReadModel.Entities;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
 namespace Brewup.Purchases.Infrastructure.MongoDb.Readmodel;
 
-public abstract class Queries<T> : IQueries<T> where T : Dto
+public abstract class Queries<T> : IQueries<T> where T : EntityBase
 {
 	protected readonly IMongoDatabase Database;
 

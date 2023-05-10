@@ -1,5 +1,4 @@
-﻿using Brewup.Purchases.ApplicationService.BindingModels;
-using Brewup.Purchases.SharedKernel.DTOs;
+﻿using Brewup.Purchases.ReadModel.Entities;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;

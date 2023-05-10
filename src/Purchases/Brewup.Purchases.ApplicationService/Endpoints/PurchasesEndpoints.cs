@@ -1,5 +1,4 @@
-﻿using Brewup.Purchases.ApplicationService.Abstracts;
-using Brewup.Purchases.ApplicationService.Validators;
+﻿using Brewup.Purchases.ApplicationService.Validators;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
