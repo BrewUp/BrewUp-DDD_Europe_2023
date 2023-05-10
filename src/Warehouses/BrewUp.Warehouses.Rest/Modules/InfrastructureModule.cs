@@ -1,5 +1,4 @@
 ﻿using BrewUp.Warehouse.Infrastructure.MongoDb;
-using BrewUp.Warehouse.Shared.Configuration;
 
 namespace BrewUp.Warehouses.Rest.Modules;
 

@@ -1,11 +1,11 @@
-﻿using BrewUp.Warehouse.ReadModel.DTOs;
+﻿using BrewUp.Warehouse.ReadModel.Entities;
 
 namespace BrewUp.Warehouse.ReadModel;
 
 public interface IPersister
 {
-    Task<T> GetBy<T>(string id) where T : ModelBase;
-    Task Insert<T>(T entity) where T : ModelBase;
-    Task Update<T>(T entity) where T : ModelBase;
-    Task Delete<T>(T entity) where T : ModelBase;
+	Task<T> GetBy<T>(string id) where T : EntityBase;
+	Task Insert<T>(T entity) where T : EntityBase;
+	Task Update<T>(T entity) where T : EntityBase;
+	Task Delete<T>(T entity) where T : EntityBase;
 }

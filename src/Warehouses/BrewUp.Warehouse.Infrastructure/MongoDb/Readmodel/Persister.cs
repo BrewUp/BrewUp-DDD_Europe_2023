@@ -1,9 +1,9 @@
-using BrewUp.Warehouse.ReadModel;
+﻿using BrewUp.Warehouse.ReadModel;
 using BrewUp.Warehouse.ReadModel.Entities;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
-namespace BrewUp.Warehouse.Infrastructure.MongoDb;
+namespace BrewUp.Warehouse.Infrastructure.MongoDb.Readmodel;
 
 public class Persister : IPersister
 {
@@ -12,7 +12,7 @@ public class Persister : IPersister
 
 	public Persister(IMongoDatabase database, ILoggerFactory loggerFactory)
 	{
-		_database = database;
+		this._database = database;
 		_logger = loggerFactory.CreateLogger(GetType());
 	}
 
@@ -23,9 +23,7 @@ public class Persister : IPersister
 		{
 			var collection = _database.GetCollection<T>(typeof(T).Name);
 			var filter = Builders<T>.Filter.Eq("_id", id);
-			return (await collection.CountDocumentsAsync(filter) > 0
-				? (await collection.FindAsync(filter)).First()
-				: null)!;
+			return (await collection.CountDocumentsAsync(filter) > 0 ? (await collection.FindAsync(filter)).First() : null)!;
 		}
 		catch (Exception e)
 		{

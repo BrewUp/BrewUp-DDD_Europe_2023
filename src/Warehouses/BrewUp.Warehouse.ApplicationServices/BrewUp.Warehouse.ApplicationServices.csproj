@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
@@ -7,8 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Abstracts\**" />
       <Compile Remove="DTOs\**" />
+      <EmbeddedResource Remove="Abstracts\**" />
       <EmbeddedResource Remove="DTOs\**" />
+      <None Remove="Abstracts\**" />
       <None Remove="DTOs\**" />
     </ItemGroup>
 
@@ -19,6 +22,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BrewUp.Warehouse.ReadModel\BrewUp.Warehouse.ReadModel.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="BindingModel\" />
+      <Folder Include="Validators\" />
     </ItemGroup>
 
 </Project>
