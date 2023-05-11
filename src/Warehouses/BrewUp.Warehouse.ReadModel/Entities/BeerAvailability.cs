@@ -2,9 +2,22 @@ namespace BrewUp.Warehouse.ReadModel.Entities;
 
 public class BeerAvailability : EntityBase
 {
-    public string BeerId { get; set; } = string.Empty;
+	public string BeerName { get; private set; } = string.Empty;
+	public double Stock { get; private set; } = 0;
+	public double Availability { get; private set; } = 0;
 
-    public string BeerName { get; set; } = string.Empty;
+	protected BeerAvailability()
+	{ }
 
-    public string Availability { get; set; } = string.Empty;
+	public static BeerAvailability Create(string beerName, double stock, double availability)
+	{
+		return new BeerAvailability(beerName, stock, availability);
+	}
+
+	private BeerAvailability(string beerName, double stock, double availability)
+	{
+		BeerName = beerName;
+		Stock = stock;
+		Availability = availability;
+	}
 }

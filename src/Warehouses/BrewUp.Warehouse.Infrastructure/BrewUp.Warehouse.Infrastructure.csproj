@@ -18,7 +18,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="RabbitMq\" />
+      <Folder Include="RabbitMq\Commands\" />
+      <Folder Include="RabbitMq\Events\" />
     </ItemGroup>
 
 </Project>

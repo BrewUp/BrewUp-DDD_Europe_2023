@@ -21,11 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 Domain", "10 Domain", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D7109A15-D5D3-4977-93B1-F3C3B0736B0F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "20 Infrastructures", "20 Infrastructures", "{918D3FFE-B6DE-4644-88A0-CF0083C00B4E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "50 Infrastructures", "50 Infrastructures", "{918D3FFE-B6DE-4644-88A0-CF0083C00B4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "40 ReadModel", "40 ReadModel", "{07CFBEB6-198C-4AF0-8E67-24285F0EC7EB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "50 ApplicationService", "50 ApplicationService", "{3AD75277-30AF-4507-AC26-5CAFBD4CA8F0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "60 ApplicationService", "60 ApplicationService", "{3AD75277-30AF-4507-AC26-5CAFBD4CA8F0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brewup.Purchases.ApplicationService", "Brewup.Purchases.ApplicationService\Brewup.Purchases.ApplicationService.csproj", "{1B93E3B0-C5FD-4FFC-AF45-83F85BD9E638}"
 EndProject

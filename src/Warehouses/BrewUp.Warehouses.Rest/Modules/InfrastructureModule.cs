@@ -1,4 +1,6 @@
 ﻿using BrewUp.Warehouse.Infrastructure.MongoDb;
+using BrewUp.Warehouse.Infrastructure.RabbitMq;
+using Muflone.Eventstore;
 
 namespace BrewUp.Warehouses.Rest.Modules;
 
@@ -9,7 +11,9 @@ public class InfrastructureModule : IModule
 	public IServiceCollection RegisterModule(WebApplicationBuilder builder)
 	{
 		builder.Services.AddMongoDb(
-			builder.Configuration.GetSection("BrewUp:MongoDbSettings").Get<MongoDbSettings>()!);
+			builder.Configuration.GetSection("BrewUp:MongoDb").Get<MongoDbSettings>()!);
+		builder.Services.AddMufloneEventStore(builder.Configuration["BrewUp:EventStore:ConnectionString"]!);
+		builder.Services.AddRabbitMq(builder.Configuration.GetSection("BrewUp:RabbitMQ").Get<RabbitMqSettings>()!);
 
 		return builder.Services;
 	}
