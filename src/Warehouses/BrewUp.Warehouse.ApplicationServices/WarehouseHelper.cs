@@ -1,8 +1,11 @@
 ﻿using BrewUp.Warehouse.ApplicationServices.Validators;
+using BrewUp.Warehouse.Messages.Events;
+using BrewUp.Warehouse.ReadModel.EventHandlers;
 using BrewUp.Warehouse.ReadModel.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using Muflone.Messages.Events;
 
 namespace BrewUp.Warehouse.ApplicationServices;
 
@@ -17,6 +20,8 @@ public static class WarehouseHelper
 
 		services.AddScoped<IWarehouseOrchestrator, WarehouseOrchestrator>();
 		services.AddScoped<IWarehouseAvailabilityService, WarehouseAvailabilityService>();
+
+		services.AddScoped<IIntegrationEventHandlerAsync<BeersReceived>, BeersReceivedEventHandler>();
 
 		return services;
 	}

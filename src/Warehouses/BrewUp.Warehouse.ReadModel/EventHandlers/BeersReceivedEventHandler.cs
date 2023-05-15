@@ -11,7 +11,7 @@ public sealed class BeersReceivedEventHandler : IntegrationEventHandlerBase<Beer
 
 	public BeersReceivedEventHandler(ILoggerFactory loggerFactory, IServiceBus serviceBus) : base(loggerFactory)
 	{
-		_serviceBus = serviceBus;
+		_serviceBus = serviceBus ?? throw new ArgumentNullException(nameof(serviceBus));
 	}
 
 	public override async Task HandleAsync(BeersReceived @event, CancellationToken cancellationToken = new())

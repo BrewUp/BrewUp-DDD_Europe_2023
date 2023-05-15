@@ -1,8 +1,6 @@
 ﻿using BrewUp.Warehouse.Messages.Events;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Muflone.Messages.Events;
-using Muflone.Transport.RabbitMQ.Abstracts;
 using Muflone.Transport.RabbitMQ.Consumers;
 using Muflone.Transport.RabbitMQ.Models;
 
@@ -13,9 +11,7 @@ public sealed class BeersReceivedConsumer : IntegrationEventsConsumerBase<BeersR
 	protected override IEnumerable<IIntegrationEventHandlerAsync<BeersReceived>> HandlersAsync { get; }
 
 	public BeersReceivedConsumer(IServiceProvider serviceProvider,
-		RabbitMQReference rabbitMQReference,
-		IMufloneConnectionFactory mufloneConnectionFactory,
-		ILoggerFactory loggerFactory) : base(rabbitMQReference, mufloneConnectionFactory, loggerFactory)
+		RabbitMQReference rabbitMQReference) : base(serviceProvider, rabbitMQReference)
 	{
 		HandlersAsync = serviceProvider.GetServices<IIntegrationEventHandlerAsync<BeersReceived>>();
 	}
