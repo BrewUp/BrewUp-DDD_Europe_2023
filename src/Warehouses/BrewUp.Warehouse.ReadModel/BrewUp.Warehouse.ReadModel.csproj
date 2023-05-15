@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BrewUp.Warehouse.Messages\BrewUp.Warehouse.Messages.csproj" />
+      <ProjectReference Include="..\BrewUp.Warehouse.SharedKernel\BrewUp.Warehouse.SharedKernel.csproj" />
     </ItemGroup>
 
 </Project>

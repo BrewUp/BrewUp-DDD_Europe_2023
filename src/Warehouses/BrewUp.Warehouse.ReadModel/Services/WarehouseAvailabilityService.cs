@@ -1,23 +1,33 @@
 using BrewUp.Warehouse.ReadModel.Entities;
+using BrewUp.Warehouse.SharedKernel.Dtos;
 using Microsoft.Extensions.Logging;
 
 namespace BrewUp.Warehouse.ReadModel.Services;
 
 public class WarehouseAvailabilityService : WarehouseBaseService, IWarehouseAvailabilityService
 {
-	public WarehouseAvailabilityService(ILoggerFactory loggerFactory, IPersister persister) : base(loggerFactory, persister)
-	{
+	private readonly IQueries<Beer> _queries;
 
+	public WarehouseAvailabilityService(ILoggerFactory loggerFactory,
+		IPersister persister,
+		IQueries<Beer> queries) : base(loggerFactory, persister)
+	{
+		_queries = queries;
 	}
-	public Task<BeerAvailability> GetBeerAvailabilityAsync(CancellationToken cancellationToken)
+	public async Task<PagedResult<BeerJson>> GetBeerAvailabilityAsync(CancellationToken cancellationToken)
 	{
-
-
-		return Task.FromResult(new BeerAvailability
+		try
 		{
-			BeerId = Guid.NewGuid().ToString(),
-			BeerName = "Muflone IPA",
-			Availability = "100l"
-		});
+			var beerAvailability = await _queries.GetByFilterAsync(null, 0, 200);
+
+			return beerAvailability.TotalRecords > 0
+				? new PagedResult<BeerJson>(beerAvailability.Results.Select(r => r.ToJson()), beerAvailability.Page, beerAvailability.PageSize, beerAvailability.TotalRecords)
+				: new PagedResult<BeerJson>(new List<BeerJson>(), 0, 0, 0);
+		}
+		catch (Exception ex)
+		{
+			Logger.LogError($"WarehouseAvailabilityService: {ex.StackTrace} - {ex.Source} - {ex.Message}");
+			throw;
+		}
 	}
 }

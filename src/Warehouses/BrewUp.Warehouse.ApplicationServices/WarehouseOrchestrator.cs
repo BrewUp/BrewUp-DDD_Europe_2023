@@ -1,5 +1,6 @@
 ﻿using BrewUp.Warehouse.ReadModel.Entities;
 using BrewUp.Warehouse.ReadModel.Services;
+using BrewUp.Warehouse.SharedKernel.Dtos;
 
 namespace BrewUp.Warehouse.ApplicationServices;
 
@@ -12,8 +13,6 @@ internal class WarehouseOrchestrator : IWarehouseOrchestrator
 		_warehouseAvailabilityService = warehouseAvailabilityService;
 	}
 
-	public Task<BeerAvailability> GetBeerAvailabilityAsync(CancellationToken cancellationToken)
-	{
-		return _warehouseAvailabilityService.GetBeerAvailabilityAsync(default);
-	}
+	public Task<PagedResult<BeerJson>> GetBeerAvailabilityAsync(CancellationToken cancellationToken) =>
+		_warehouseAvailabilityService.GetBeerAvailabilityAsync(default);
 }

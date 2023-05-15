@@ -25,7 +25,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="BindingModel\" />
+      <Folder Include="BindingModels\" />
+      <Folder Include="Sagas\" />
       <Folder Include="Validators\" />
     </ItemGroup>
 

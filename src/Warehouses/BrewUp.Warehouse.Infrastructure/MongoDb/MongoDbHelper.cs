@@ -1,5 +1,6 @@
 ﻿using BrewUp.Warehouse.Infrastructure.MongoDb.Readmodel;
 using BrewUp.Warehouse.ReadModel;
+using BrewUp.Warehouse.ReadModel.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
@@ -19,6 +20,8 @@ namespace BrewUp.Warehouse.Infrastructure.MongoDb
 				return database;
 			});
 			services.AddScoped<IPersister, Persister>();
+			services.AddScoped<IQueries<Beer>, BeersQueries>();
+
 			services.AddSingleton<IEventStorePositionRepository>(x =>
 				new EventStorePositionRepository(x.GetService<ILogger<EventStorePositionRepository>>(), mongoDbSettings));
 
