@@ -20,6 +20,7 @@ public abstract class CommandHandlerBaseAsync<TCommand> : CommandHandlerAsync<TC
 		}
 		catch (Exception e)
 		{
+			// Raise an event is a better solution!
 			Logger.LogError(
 				$"Error processing command: {command.GetType()} - Aggregate: {command.AggregateId} - CommandId : {command.MessageId} - Messagge: {e.Message} - Stack Trace {e.StackTrace}");
 			throw;

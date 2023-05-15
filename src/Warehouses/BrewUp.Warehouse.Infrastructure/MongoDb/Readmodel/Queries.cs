@@ -24,7 +24,6 @@ public abstract class Queries<T> : IQueries<T> where T : EntityBase
 
 	public async Task<PagedResult<T>> GetByFilterAsync(Expression<Func<T, bool>>? query, int page, int pageSize)
 	{
-		//TODO a minimum errors handling would be nice in real life
 		if (--page < 0)
 			page = 0;
 

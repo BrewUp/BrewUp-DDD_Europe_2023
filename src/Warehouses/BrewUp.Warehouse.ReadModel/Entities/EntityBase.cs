@@ -14,12 +14,12 @@
 			return Equals(obj as EntityBase);
 		}
 
-		public bool Equals(EntityBase other)
+		public bool Equals(EntityBase? other)
 		{
-			return (null != other) && (GetType() == other.GetType()) && (other.Id == Id);
+			return (null != other) && GetType() == other.GetType() && other.Id == Id;
 		}
 
-		public static bool operator ==(EntityBase entity1, EntityBase entity2)
+		public static bool operator ==(EntityBase? entity1, EntityBase? entity2)
 		{
 			if ((object)entity1 == null && (object)entity2 == null)
 				return true;
@@ -30,7 +30,7 @@
 
 		public static bool operator !=(EntityBase entity1, EntityBase entity2)
 		{
-			return (!(entity1 == entity2));
+			return !(entity1 == entity2);
 		}
 	}
 }
