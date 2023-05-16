@@ -16,6 +16,8 @@ public class WarehouseAvailabilityService : WarehouseBaseService, IWarehouseAvai
 	}
 	public async Task<PagedResult<BeerJson>> GetBeerAvailabilityAsync(CancellationToken cancellationToken)
 	{
+		cancellationToken.ThrowIfCancellationRequested();
+
 		try
 		{
 			var beerAvailability = await _queries.GetByFilterAsync(null, 0, 200);

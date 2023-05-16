@@ -1,3 +1,4 @@
+using BrewUp.Warehouse.SharedKernel.DomainIds;
 using BrewUp.Warehouse.SharedKernel.Dtos;
 
 namespace BrewUp.Warehouse.ReadModel.Entities;
@@ -11,16 +12,27 @@ public class Beer : EntityBase
 	protected Beer()
 	{ }
 
-	public static Beer Create(string beerName, double stock, double availability)
+	public static Beer Create(BeerId beerId, BeerName beerName)
 	{
-		return new Beer(beerName, stock, availability);
+		return new Beer(beerId.ToString(), beerName.Value);
 	}
 
-	private Beer(string beerName, double stock, double availability)
+	private Beer(string beerId, string beerName)
 	{
+		Id = beerId;
 		BeerName = beerName;
-		Stock = stock;
-		Availability = availability;
+		Stock = 0;
+		Availability = 0;
+	}
+
+	public void UpdateStock(Stock stock)
+	{
+		Stock = stock.Value;
+	}
+
+	public void UpdateAvailability(Availability availability)
+	{
+		Availability = availability.Value;
 	}
 
 	public BeerJson ToJson()

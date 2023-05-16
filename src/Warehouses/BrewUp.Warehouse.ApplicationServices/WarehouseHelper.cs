@@ -20,8 +20,10 @@ public static class WarehouseHelper
 
 		services.AddScoped<IWarehouseOrchestrator, WarehouseOrchestrator>();
 		services.AddScoped<IWarehouseAvailabilityService, WarehouseAvailabilityService>();
+		services.AddScoped<IBeerService, BeerService>();
 
 		services.AddScoped<IIntegrationEventHandlerAsync<BeersReceived>, BeersReceivedEventHandler>();
+		services.AddScoped<IDomainEventHandlerAsync<BeerCreated>, BeerCreatedEventHandler>();
 
 		return services;
 	}

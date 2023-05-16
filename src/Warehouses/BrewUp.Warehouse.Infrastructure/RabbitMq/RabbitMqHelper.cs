@@ -30,8 +30,10 @@ public static class RabbitMqHelper
 
 		var consumers = new List<IConsumer>
 		{
+			new BeersReceivedConsumer(serviceProvider, rabbitMQReference with { QueueEventsName = nameof(BeersReceived)}),
+
 			new CreateBeerConsumer(serviceProvider, rabbitMQReference with { QueueCommandsName = nameof(CreateBeer)}),
-			new BeersReceivedConsumer(serviceProvider, rabbitMQReference with { QueueEventsName = nameof(BeersReceived)})
+			new BeerCreatedConsumer(serviceProvider, rabbitMQReference with{ QueueEventsName = nameof(BeerCreated)})
 		};
 
 		services.RegisterConsumersInTransportRabbitMQ(consumers);

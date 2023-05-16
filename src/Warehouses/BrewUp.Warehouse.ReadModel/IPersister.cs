@@ -4,8 +4,8 @@ namespace BrewUp.Warehouse.ReadModel;
 
 public interface IPersister
 {
-	Task<T> GetBy<T>(string id) where T : EntityBase;
-	Task Insert<T>(T entity) where T : EntityBase;
-	Task Update<T>(T entity) where T : EntityBase;
-	Task Delete<T>(T entity) where T : EntityBase;
+	Task<T> GetByIdAsync<T>(string id, CancellationToken cancellationToken) where T : EntityBase;
+	Task InsertAsync<T>(T entity, CancellationToken cancellationToken) where T : EntityBase;
+	Task UpdateAsync<T>(T entity, CancellationToken cancellationToken) where T : EntityBase;
+	Task DeleteAsync<T>(T entity, CancellationToken cancellationToken) where T : EntityBase;
 }
