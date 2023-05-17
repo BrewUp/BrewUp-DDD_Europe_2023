@@ -7,14 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="RabbitMq\Commands\" />
-    <Folder Include="RabbitMq\Events\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
     <PackageReference Include="Muflone.Eventstore" Version="6.1.1" />
-    <PackageReference Include="Muflone.Transport.RabbitMQ" Version="6.1.3" />
+    <PackageReference Include="Muflone.Transport.RabbitMQ" Version="6.1.4" />
   </ItemGroup>
 
   <ItemGroup>

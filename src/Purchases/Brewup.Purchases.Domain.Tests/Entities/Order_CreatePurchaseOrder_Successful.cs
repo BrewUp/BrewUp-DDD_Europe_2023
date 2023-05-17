@@ -10,19 +10,18 @@ using Muflone.SpecificationTests;
 
 namespace Brewup.Purchases.Domain.Tests.Entities;
 
-public class Order_CreateBuyOrderSuccessful : CommandSpecification<CreateBuyOrder>
+public class Order_CreatePurchaseOrder_Successful : CommandSpecification<CreatePurchaseOrder>
 {
-	private readonly BuyOrderId _buyOrderId;
+	private readonly PurchaseOrderId _purchaseOrderId;
 	private readonly SupplierId _supplierId;
 
 	private readonly DateTime _date;
 
 	private readonly IEnumerable<OrderLine> _lines;
-	//private IList<OrderLine> _lines;
 
-	public Order_CreateBuyOrderSuccessful()
+	public Order_CreatePurchaseOrder_Successful()
 	{
-		_buyOrderId = new BuyOrderId(Guid.NewGuid());
+		_purchaseOrderId = new PurchaseOrderId(Guid.NewGuid());
 		_supplierId = new SupplierId(Guid.NewGuid());
 		_date = DateTime.Today;
 
@@ -51,18 +50,18 @@ public class Order_CreateBuyOrderSuccessful : CommandSpecification<CreateBuyOrde
 		yield break;
 	}
 
-	protected override CreateBuyOrder When()
+	protected override CreatePurchaseOrder When()
 	{
-		return new CreateBuyOrder(_buyOrderId, _supplierId, _date, _lines);
+		return new CreatePurchaseOrder(_purchaseOrderId, _supplierId, _date, _lines);
 	}
 
-	protected override ICommandHandlerAsync<CreateBuyOrder> OnHandler()
+	protected override ICommandHandlerAsync<CreatePurchaseOrder> OnHandler()
 	{
-		return new CreateBuyOrderHandlerAsync(Repository, new NullLoggerFactory());
+		return new CreatePurchaseOrderHandlerAsync(Repository, new NullLoggerFactory());
 	}
 
 	protected override IEnumerable<DomainEvent> Expect()
 	{
-		yield return new BuyOrderCreated(_buyOrderId, _supplierId, _date, _lines);
+		yield return new PurchaseOrderCreated(_purchaseOrderId, _supplierId, _date, _lines);
 	}
 }

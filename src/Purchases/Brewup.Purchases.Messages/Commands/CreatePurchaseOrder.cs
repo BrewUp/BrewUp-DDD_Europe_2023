@@ -4,13 +4,13 @@ using Muflone.Messages.Commands;
 
 namespace Brewup.Purchases.Messages.Commands;
 
-public class CreateBuyOrder : Command
+public class CreatePurchaseOrder : Command
 {
 	public SupplierId SupplierId { get; }
 	public DateTime Date { get; }
 	public IEnumerable<OrderLine> Lines { get; }
 
-	public CreateBuyOrder(BuyOrderId aggregateId, SupplierId supplierId, DateTime date, IEnumerable<OrderLine> lines) :
+	public CreatePurchaseOrder(PurchaseOrderId aggregateId, SupplierId supplierId, DateTime date, IEnumerable<OrderLine> lines) :
 		base(aggregateId)
 	{
 		SupplierId = supplierId;

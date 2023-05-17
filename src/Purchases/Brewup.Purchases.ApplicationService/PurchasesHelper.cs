@@ -18,9 +18,9 @@ public static class PurchasesHelper
 
 		services.AddSingleton<ValidationHandler>();
 
-		services.AddScoped<IBuyOrderService, BuyOrderService>();
+		services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
 		services.AddScoped<IPurchasesOrchestrator, PurchasesOrchestrator>();
-		services.AddScoped<IDomainEventHandlerAsync<BuyOrderCreated>, BuyOrderCreatedEventHandler>();
+		services.AddScoped<IDomainEventHandlerAsync<PurchaseOrderCreated>, PurchaseOrderCreatedEventHandler>();
 
 		return services;
 	}
