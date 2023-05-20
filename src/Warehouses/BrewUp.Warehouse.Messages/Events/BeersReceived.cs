@@ -6,10 +6,10 @@ namespace BrewUp.Warehouse.Messages.Events;
 
 public sealed class BeersReceived : IntegrationEvent
 {
-	public readonly BuyOrderId BuyOrderId;
+	public readonly PurchaseOrderId BuyOrderId;
 	public readonly IEnumerable<OrderLine> OrderLines;
 
-	public BeersReceived(BuyOrderId aggregateId, Guid correlationId, IEnumerable<OrderLine> orderLines) : base(aggregateId, correlationId)
+	public BeersReceived(PurchaseOrderId aggregateId, Guid correlationId, IEnumerable<OrderLine> orderLines) : base(aggregateId, correlationId)
 	{
 		BuyOrderId = aggregateId;
 		OrderLines = orderLines;

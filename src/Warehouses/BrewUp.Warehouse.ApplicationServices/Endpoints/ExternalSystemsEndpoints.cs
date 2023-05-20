@@ -22,7 +22,7 @@ public static class ExternalSystemsEndpoints
 		if (!validationHandler.IsValid)
 			return Results.BadRequest(validationHandler.Errors);
 
-		var beersReceived = new BeersReceived(new BuyOrderId(new Guid(body.OrderId)),
+		var beersReceived = new BeersReceived(new PurchaseOrderId(new Guid(body.OrderId)),
 			Guid.NewGuid(), body.OrderLines.ToEntity());
 
 		await eventBus.PublishAsync(beersReceived, cancellationToken);
