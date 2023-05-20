@@ -10,14 +10,14 @@ using Muflone.SpecificationTests;
 
 namespace Brewup.Purchases.Domain.Tests.Entities;
 
-public class Order_UpdatePurchaseOrderStatus_Complete : CommandSpecification<ChangePurchaseOrderStatusToComplete>
+public class Order_UpdatePurchaseOrderStatusToComplete_ChangeStatus : CommandSpecification<ChangePurchaseOrderStatusToComplete>
 {
 	private readonly PurchaseOrderId _purchaseOrderId;
 	private readonly SupplierId _supplierId;
 	private readonly DateTime _date;
 	private readonly IEnumerable<OrderLine> _lines;
 
-	public Order_UpdatePurchaseOrderStatus_Complete()
+	public Order_UpdatePurchaseOrderStatusToComplete_ChangeStatus()
 	{
 		_purchaseOrderId = new PurchaseOrderId(Guid.NewGuid());
 		_supplierId = new SupplierId(Guid.NewGuid());
