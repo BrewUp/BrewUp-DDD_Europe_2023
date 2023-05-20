@@ -3,6 +3,7 @@ using Brewup.Purchases.Infrastructure.RabbitMq.Commands;
 using Brewup.Purchases.Infrastructure.RabbitMq.Events;
 using Brewup.Purchases.Messages.Commands;
 using Brewup.Purchases.Messages.Events;
+using EventStore.ClientAPI.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
@@ -15,58 +16,36 @@ namespace Brewup.Purchases.Infrastructure;
 
 public static class RabbitMqHelper
 {
-	//public static IServiceCollection AddRabbitMq(this IServiceCollection services,
-	//	RabbitMqSettings rabbitMqSettings)
-	//{
-	//	var serviceProvider = services.BuildServiceProvider();
-	//	var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
-	//	var repository = serviceProvider.GetService<IRepository>();
-
-	//	var rabbitMQConfiguration = new RabbitMQConfiguration(
-	//		rabbitMqSettings.Host,
-	//		rabbitMqSettings.Username,
-	//		rabbitMqSettings.Password,
-	//		rabbitMqSettings.ClientId);
-	//	var rabbitMQReference =
-	//		new RabbitMQReference(rabbitMqSettings.ExchangeCommandName,
-	//			rabbitMqSettings.QueueCommandName,
-	//			rabbitMqSettings.ExchangeEventName,
-	//			rabbitMqSettings.ExchangeCommandName);
-	//	var mufloneConnectionFactory = new MufloneConnectionFactory(rabbitMQConfiguration, loggerFactory!);
-
-	//	var consumers = new List<IConsumer>
-	//	{
-	//		new CreatePurchaseOrderConsumer(repository!, rabbitMQReference with { QueueCommandsName = nameof(CreatePurchaseOrder)}, mufloneConnectionFactory, loggerFactory!),
-	//		new PurchaseOrderCreatedConsumer(serviceProvider, rabbitMQReference with{ QueueEventsName = nameof(PurchaseOrderCreated)}, mufloneConnectionFactory, loggerFactory!)
-	//	};
-
-	//	services.AddMufloneTransportRabbitMQ(rabbitMQConfiguration, rabbitMQReference);
-
-	//	return services;
-	//}
-
 	public static IServiceCollection AddRabbitMq(this IServiceCollection services,
 		RabbitMqSettings rabbitMqSettings)
 	{
+		var serviceProvider = services.BuildServiceProvider();
+		var repository = serviceProvider.GetService<IRepository>();
+		var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+
 		var rabbitMQConfiguration = new RabbitMQConfiguration(
 			rabbitMqSettings.Host,
 			rabbitMqSettings.Username,
 			rabbitMqSettings.Password,
 			rabbitMqSettings.ClientId);
-		var rabbitMQReference = new RabbitMQReference(rabbitMqSettings.ExchangeCommandName, 
+		var rabbitMQReference = new RabbitMQReference(rabbitMqSettings.ExchangeCommandName,
 			rabbitMqSettings.QueueCommandName,
 			rabbitMqSettings.ExchangeEventName,
 			rabbitMqSettings.QueueEventName);
-		services.AddMufloneTransportRabbitMQ(rabbitMQConfiguration, rabbitMQReference);
 
-		var serviceProvider = services.BuildServiceProvider();
+		var mufloneConnectionFactory = new MufloneConnectionFactory(rabbitMQConfiguration, loggerFactory!);
 
-		var consumers = new List<IConsumer>
+		services.AddMufloneTransportRabbitMQ(rabbitMQConfiguration, rabbitMQReference, new List<IConsumer>
 		{
-			new CreatePurchaseOrderConsumer(serviceProvider, rabbitMQReference with { QueueCommandsName = nameof(CreatePurchaseOrder) }),
-			new PurchaseOrderCreatedConsumer(serviceProvider, rabbitMQReference with { QueueEventsName = nameof(PurchaseOrderCreated) })
-		};
-		services.RegisterConsumersInTransportRabbitMQ(consumers);
+			new CreatePurchaseOrderConsumer(repository, mufloneConnectionFactory,
+				rabbitMQReference with { QueueCommandsName = nameof(CreatePurchaseOrder) }, loggerFactory),
+			new PurchaseOrderCreatedConsumer(serviceProvider, mufloneConnectionFactory,
+				rabbitMQReference with { QueueEventsName = nameof(PurchaseOrderCreated) }, loggerFactory),
+			new ChangePurchaseOrderStatusToCompleteConsumer(repository, mufloneConnectionFactory,
+				rabbitMQReference with { QueueCommandsName = nameof(ChangePurchaseOrderStatusToComplete) }, loggerFactory),
+			new PurchaseOrderStatusChangedToCompleteConsumer(serviceProvider, mufloneConnectionFactory,
+				rabbitMQReference with { QueueEventsName = nameof(PurchaseOrderStatusChangedToComplete) }, loggerFactory)
+		});
 
 		return services;
 	}

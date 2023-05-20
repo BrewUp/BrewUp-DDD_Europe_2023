@@ -41,13 +41,15 @@ public class Order : AggregateRoot
 		_status = OrderStatus.Created;
 		//_supplierId = @event.SupplierId;
 		//_date = @event.Date;
-		//_lines = @event.Lines.ToEntities();
+		_lines = @event.Lines.ToEntities();
 	}
 
 	public void Complete()
 	{
 		if (!_status.Equals(OrderStatus.Complete))
-			RaiseEvent(new PurchaseOrderStatusChangedToComplete((PurchaseOrderId)Id));
+		{
+			RaiseEvent(new PurchaseOrderStatusChangedToComplete((PurchaseOrderId)Id, _lines.ToDtos()));
+		}
 	}
 
 	private void Apply(PurchaseOrderStatusChangedToComplete @event)

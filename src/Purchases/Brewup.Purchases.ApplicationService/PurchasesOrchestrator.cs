@@ -25,4 +25,11 @@ public sealed class PurchasesOrchestrator : IPurchasesOrchestrator
 
         return order.Id.ToString();
     }
+
+    public async Task ChangeStatusToComplete(Guid id, CancellationToken cancellationToken)
+    {
+	    var command = new ChangePurchaseOrderStatusToComplete(new PurchaseOrderId(id));
+
+	    await _serviceBus.SendAsync(command, cancellationToken);
+	}
 }

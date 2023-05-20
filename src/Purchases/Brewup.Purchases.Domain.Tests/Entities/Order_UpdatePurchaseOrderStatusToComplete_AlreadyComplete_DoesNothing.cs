@@ -28,14 +28,14 @@ public class Order_UpdatePurchaseOrderStatusToComplete_AlreadyComplete_DoesNothi
 		{
 			new()
 			{
-				ProductId = new ProductId(Guid.NewGuid()),
+				BeerId = new BeerId(Guid.NewGuid()),
 				Title = "Product 1",
 				Quantity = new Quantity { UnitOfMeasure = "N.", Value = 1 },
 				Price = new Price { Currency = "EUR", Value = 1 }
 			},
 			new()
 			{
-				ProductId = new ProductId(Guid.NewGuid()),
+				BeerId = new BeerId(Guid.NewGuid()),
 				Title = "Product 2",
 				Quantity = new Quantity { UnitOfMeasure = "N.", Value = 2 },
 				Price = new Price { Currency = "EUR", Value = 2 }
@@ -46,7 +46,7 @@ public class Order_UpdatePurchaseOrderStatusToComplete_AlreadyComplete_DoesNothi
 	protected override IEnumerable<DomainEvent> Given()
 	{
 		yield return new PurchaseOrderCreated(_purchaseOrderId, _supplierId, _date, _lines);
-		yield return new PurchaseOrderStatusChangedToComplete(_purchaseOrderId);
+		yield return new PurchaseOrderStatusChangedToComplete(_purchaseOrderId, _lines);
 	}
 
 	protected override ChangePurchaseOrderStatusToComplete When()

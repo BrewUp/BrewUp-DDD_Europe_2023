@@ -1,9 +1,10 @@
 ﻿using BrewUp.Warehouse.Messages.Commands;
 using BrewUp.Warehouse.Messages.Events;
+using BrewUp.Warehouse.ReadModel.EventHandlers;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
 
-namespace BrewUp.Warehouse.ReadModel.EventHandlers;
+namespace BrewUp.Warehouse.ApplicationServices.Adapters;
 
 public sealed class BeersReceivedEventHandler : IntegrationEventHandlerBase<BeersReceived>
 {
@@ -14,7 +15,7 @@ public sealed class BeersReceivedEventHandler : IntegrationEventHandlerBase<Beer
 		_serviceBus = serviceBus ?? throw new ArgumentNullException(nameof(serviceBus));
 	}
 
-	public override async Task HandleAsync(BeersReceived @event, CancellationToken cancellationToken = new())
+	public override async Task HandleAsync(BeersReceived @event, CancellationToken cancellationToken = default)
 	{
 		var correlationId = new Guid(@event.UserProperties.FirstOrDefault(u => u.Key.Equals("CorrelationId")).Value.ToString()!);
 		if (correlationId.Equals(Guid.Empty))

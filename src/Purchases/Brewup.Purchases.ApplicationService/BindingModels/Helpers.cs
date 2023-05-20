@@ -6,7 +6,7 @@ public static class Helpers
 	{
 		return new SharedKernel.DTOs.OrderLine
 		{
-			ProductId = new SharedKernel.DomainIds.ProductId(orderLine.ProductId),
+			BeerId = new SharedKernel.DomainIds.BeerId(orderLine.ProductId),
 			Title = orderLine.Title,
 			Quantity = new SharedKernel.DTOs.Quantity
 			{

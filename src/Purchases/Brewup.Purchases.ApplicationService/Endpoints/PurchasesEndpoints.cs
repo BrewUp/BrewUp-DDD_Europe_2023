@@ -1,6 +1,8 @@
 ﻿using Brewup.Purchases.ApplicationService.Validators;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.Threading;
 
 namespace Brewup.Purchases.ApplicationService.Endpoints;
 
@@ -20,5 +22,11 @@ public static class PurchasesEndpoints
 		var orderId = await purchasesOrchestrator.CreateOrderAsync(body, cancellationToken);
 
 		return Results.Created($"/api/v1/Order/{orderId}", orderId);
+	}
+
+	public static async Task<IResult> HandleSetOrderStatusToComplete(IPurchasesOrchestrator purchasesOrchestrator, Guid id, CancellationToken cancellationToken)
+	{
+		await purchasesOrchestrator.ChangeStatusToComplete(id, cancellationToken);
+		return Results.Ok();
 	}
 }

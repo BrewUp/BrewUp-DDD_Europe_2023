@@ -9,14 +9,16 @@ using Muflone.Transport.RabbitMQ.Models;
 
 namespace Brewup.Purchases.Infrastructure.RabbitMq.Commands;
 
-public sealed class CreatePurchaseOrderConsumer : CommandConsumerBase<CreatePurchaseOrder>
+public sealed class
+	ChangePurchaseOrderStatusToCompleteConsumer : CommandConsumerBase<ChangePurchaseOrderStatusToComplete>
 {
-	protected override ICommandHandlerAsync<CreatePurchaseOrder> HandlerAsync { get; }
+	protected override ICommandHandlerAsync<ChangePurchaseOrderStatusToComplete> HandlerAsync { get; }
 
-	public CreatePurchaseOrderConsumer(IRepository repository, IMufloneConnectionFactory mufloneConnectionFactory,
+	public ChangePurchaseOrderStatusToCompleteConsumer(IRepository repository,
+		IMufloneConnectionFactory mufloneConnectionFactory,
 		RabbitMQReference rabbitMQReference, ILoggerFactory loggerFactory)
 		: base(repository, mufloneConnectionFactory, rabbitMQReference, loggerFactory)
 	{
-		HandlerAsync = new CreatePurchaseOrderHandlerAsync(repository, loggerFactory);
+		HandlerAsync = new ChangePurchaseOrderStatusToCompleteHandlerAsync(repository, loggerFactory);
 	}
 }

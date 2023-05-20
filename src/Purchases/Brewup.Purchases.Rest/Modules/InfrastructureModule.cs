@@ -8,7 +8,7 @@ namespace Brewup.Purchases.Rest.Modules;
 public class InfrastructureModule : IModule
 {
 	public bool IsEnabled => true;
-	public int Order => 99;
+	public int Order => 0;
 
 	public IServiceCollection RegisterModule(WebApplicationBuilder builder)
 	{

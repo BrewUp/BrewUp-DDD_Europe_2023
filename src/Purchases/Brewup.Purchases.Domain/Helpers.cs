@@ -8,7 +8,7 @@ public static class Helpers
 	{
 		return lines.Select(x => new OrderLine
 		{
-			ProductId = x.ProductId,
+			BeerId = x.BeerId,
 			Price = new Price { Currency = x.Price.Currency, Value = x.Price.Value },
 			Quantity = new Quantity { UnitOfMeasure = x.Quantity.UnitOfMeasure, Value = x.Quantity.Value },
 			Title = x.Title
@@ -18,7 +18,7 @@ public static class Helpers
 	public static IEnumerable<Entities.OrderLine> ToEntities(this IEnumerable<OrderLine> lines)
 	{
 		return lines.Select(x => new Entities.OrderLine(
-			x.ProductId,
+			x.BeerId,
 			x.Title,
 			new Entities.Quantity(x.Quantity.Value, x.Quantity.UnitOfMeasure),
 			new Entities.Price(x.Price.Value, x.Price.Currency)));

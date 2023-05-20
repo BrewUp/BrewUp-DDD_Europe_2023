@@ -1,4 +1,5 @@
-﻿using BrewUp.Warehouse.ApplicationServices.Validators;
+﻿using BrewUp.Warehouse.ApplicationServices.Adapters;
+using BrewUp.Warehouse.ApplicationServices.Validators;
 using BrewUp.Warehouse.Messages.Events;
 using BrewUp.Warehouse.ReadModel.EventHandlers;
 using BrewUp.Warehouse.ReadModel.Services;

@@ -1,6 +1,8 @@
 ﻿using Brewup.Purchases.Messages.Events;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Muflone.Messages.Events;
+using Muflone.Transport.RabbitMQ.Abstracts;
 using Muflone.Transport.RabbitMQ.Consumers;
 using Muflone.Transport.RabbitMQ.Models;
 
@@ -10,14 +12,9 @@ public sealed class PurchaseOrderCreatedConsumer : DomainEventsConsumerBase<Purc
 {
 	protected override IEnumerable<IDomainEventHandlerAsync<PurchaseOrderCreated>> HandlersAsync { get; }
 
-	//public PurchaseOrderCreatedConsumer(IServiceProvider serviceProvider, RabbitMQReference rabbitMQReference, IMufloneConnectionFactory mufloneConnectionFactory, ILoggerFactory loggerFactory) 
-	//	: base(rabbitMQReference, mufloneConnectionFactory, loggerFactory)
-	//{
-	//	HandlersAsync = serviceProvider.GetServices<IDomainEventHandlerAsync<PurchaseOrderCreated>>();
-	//}
-
-	public PurchaseOrderCreatedConsumer(IServiceProvider serviceProvider, RabbitMQReference rabbitMQReference) : base(
-		serviceProvider, rabbitMQReference)
+	public PurchaseOrderCreatedConsumer(IServiceProvider serviceProvider, IMufloneConnectionFactory mufloneConnectionFactory,
+		RabbitMQReference rabbitMQReference,
+		ILoggerFactory loggerFactory) : base(mufloneConnectionFactory, rabbitMQReference, loggerFactory)
 	{
 		HandlersAsync = serviceProvider.GetServices<IDomainEventHandlerAsync<PurchaseOrderCreated>>();
 	}

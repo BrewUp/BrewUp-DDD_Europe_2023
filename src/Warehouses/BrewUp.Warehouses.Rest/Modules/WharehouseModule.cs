@@ -6,7 +6,7 @@ namespace BrewUp.Warehouses.Rest.Modules;
 public class WharehouseModule : IModule
 {
 	public bool IsEnabled => true;
-	public int Order => 0;
+	public int Order => 100;
 	public IServiceCollection RegisterModule(WebApplicationBuilder builder)
 	{
 		builder.Services.AddWarehouseServices();
