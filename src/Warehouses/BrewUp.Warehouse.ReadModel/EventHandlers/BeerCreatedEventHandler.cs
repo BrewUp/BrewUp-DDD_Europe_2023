@@ -7,8 +7,8 @@ namespace BrewUp.Warehouse.ReadModel.EventHandlers;
 public sealed class BeerCreatedEventHandler : DomainEventHandlerBase<BeerCreated>
 {
 	private readonly IBeerService _beerService;
-	public BeerCreatedEventHandler(ILoggerFactory loggerFactory,
-		IBeerService beerService) : base(loggerFactory)
+
+	public BeerCreatedEventHandler(ILoggerFactory loggerFactory, IBeerService beerService) : base(loggerFactory)
 	{
 		_beerService = beerService;
 	}
