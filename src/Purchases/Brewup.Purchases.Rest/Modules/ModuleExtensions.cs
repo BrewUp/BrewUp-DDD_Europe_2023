@@ -7,20 +7,22 @@ public static class ModuleExtensions
 	public static WebApplicationBuilder RegisterModules(this WebApplicationBuilder builder)
 	{
 		var modules = DiscoverModules()
-			.Where(m => m.IsEnabled).
-			OrderBy(m => m.Order);
+			.Where(m => m.IsEnabled)
+			.OrderBy(m => m.Order);
 
 		foreach (var module in modules)
 		{
 			module.RegisterModule(builder);
 			RegisteredModules.Add(module);
 		}
+
 		return builder;
 	}
 
 	public static WebApplication MapEndpoints(this WebApplication app)
 	{
-		foreach (var module in RegisteredModules) module.MapEndpoints(app);
+		foreach (var module in RegisteredModules)
+			module.MapEndpoints(app);
 
 		return app;
 	}

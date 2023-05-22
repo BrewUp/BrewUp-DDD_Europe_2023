@@ -9,8 +9,7 @@ using Muflone.Transport.RabbitMQ.Models;
 
 namespace Brewup.Purchases.Infrastructure.RabbitMq.Commands;
 
-public sealed class
-	ChangePurchaseOrderStatusToCompleteConsumer : CommandConsumerBase<ChangePurchaseOrderStatusToComplete>
+public sealed class ChangePurchaseOrderStatusToCompleteConsumer : CommandConsumerBase<ChangePurchaseOrderStatusToComplete>
 {
 	protected override ICommandHandlerAsync<ChangePurchaseOrderStatusToComplete> HandlerAsync { get; }
 

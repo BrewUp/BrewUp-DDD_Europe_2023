@@ -1,5 +1,6 @@
 ﻿using Brewup.Purchases.Infrastructure.MongoDb.Readmodel;
 using Brewup.Purchases.ReadModel;
+using Brewup.Purchases.ReadModel.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
@@ -33,8 +34,10 @@ namespace Brewup.Purchases.Infrastructure.MongoDb
 				return database;
 			});
 			services.AddScoped<IPersister, Persister>();
+			services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
 			services.AddSingleton<IEventStorePositionRepository>(x =>
 				new EventStorePositionRepository(x.GetService<ILogger<EventStorePositionRepository>>(), mongoDbSettings));
+
 			return services;
 		}
 	}

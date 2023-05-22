@@ -1,5 +1,4 @@
-﻿using Brewup.Purchases.Infrastructure;
-using Brewup.Purchases.Infrastructure.MongoDb;
+﻿using Brewup.Purchases.Infrastructure.MongoDb;
 using Brewup.Purchases.Infrastructure.RabbitMq;
 using Muflone.Eventstore;
 
@@ -8,7 +7,7 @@ namespace Brewup.Purchases.Rest.Modules;
 public class InfrastructureModule : IModule
 {
 	public bool IsEnabled => true;
-	public int Order => 0;
+	public int Order => 10;
 
 	public IServiceCollection RegisterModule(WebApplicationBuilder builder)
 	{

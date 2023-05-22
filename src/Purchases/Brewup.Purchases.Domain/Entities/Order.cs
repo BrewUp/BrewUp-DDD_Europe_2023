@@ -10,7 +10,7 @@ public class Order : AggregateRoot
 	private SupplierId _supplierId;
 	private DateTime _date;
 	private IEnumerable<OrderLine> _lines;
-	private OrderStatus _status;
+	private Status _status;
 
 	//Called when loaded from the event store
 	protected Order()
@@ -38,7 +38,7 @@ public class Order : AggregateRoot
 	private void Apply(PurchaseOrderCreated @event)
 	{
 		Id = @event.AggregateId;
-		_status = OrderStatus.Created;
+		_status = Status.Created;
 		//_supplierId = @event.SupplierId;
 		//_date = @event.Date;
 		_lines = @event.Lines.ToEntities();
@@ -46,7 +46,7 @@ public class Order : AggregateRoot
 
 	public void Complete()
 	{
-		if (!_status.Equals(OrderStatus.Complete))
+		if (!_status.Equals(Status.Complete))
 		{
 			RaiseEvent(new PurchaseOrderStatusChangedToComplete((PurchaseOrderId)Id, _lines.ToDtos()));
 		}
@@ -54,6 +54,6 @@ public class Order : AggregateRoot
 
 	private void Apply(PurchaseOrderStatusChangedToComplete @event)
 	{
-		_status = OrderStatus.Complete;
+		_status = Status.Complete;
 	}
 }

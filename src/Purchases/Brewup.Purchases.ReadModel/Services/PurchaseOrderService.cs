@@ -22,7 +22,7 @@ public class PurchaseOrderService : ServiceBase, IPurchaseOrderService
 	public async Task UpdateStatusToComplete(PurchaseOrderId purchaseOrderId)
 	{
 		var order = await Persister.GetBy<PurchaseOrder>(purchaseOrderId.ToString());
-		order.Status = OrderStatus.Complete;
+		order.Status = Status.Complete;
 		await Persister.Update(order);
 	}
 }

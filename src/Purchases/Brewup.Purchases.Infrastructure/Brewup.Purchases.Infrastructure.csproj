@@ -9,13 +9,12 @@
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
     <PackageReference Include="Muflone.Eventstore" Version="6.1.1" />
-    <PackageReference Include="Muflone.Transport.RabbitMQ" Version="6.1.6" />
+    <PackageReference Include="Muflone.Transport.RabbitMQ" Version="6.1.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Brewup.Purchases.Domain\Brewup.Purchases.Domain.csproj" />
     <ProjectReference Include="..\Brewup.Purchases.ReadModel\Brewup.Purchases.ReadModel.csproj" />
-    <ProjectReference Include="..\Brewup.Purchases.SharedKernel\Brewup.Purchases.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>
