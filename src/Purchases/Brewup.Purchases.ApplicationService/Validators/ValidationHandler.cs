@@ -12,6 +12,7 @@ public sealed class ValidationHandler
 		var validationResult = await validator.ValidateAsync(validateMe);
 		if (validationResult.IsValid)
 		{
+			IsValid = true;
 			Errors = new Dictionary<string, string[]>();
 			return;
 		}
