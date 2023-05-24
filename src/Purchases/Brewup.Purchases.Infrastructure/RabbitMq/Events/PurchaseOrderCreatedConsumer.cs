@@ -20,7 +20,8 @@ public sealed class PurchaseOrderCreatedConsumer : DomainEventsConsumerBase<Purc
 	{
 		HandlersAsync = new List<IDomainEventHandlerAsync<PurchaseOrderCreated>>
 		{
-			new PurchaseOrderCreatedEventHandler(loggerFactory, purchaseOrderService)
+			new PurchaseOrderCreatedEventHandler(loggerFactory, purchaseOrderService),
+			new PurchaseOrderCreatedSendEmailEventHandler(loggerFactory)
 		};
 	}
 }

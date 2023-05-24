@@ -25,10 +25,11 @@ public static class RabbitMqHelper
 		var rabbitMQConfiguration = new RabbitMQConfiguration(rabbitMqSettings.Host, rabbitMqSettings.Username, rabbitMqSettings.Password, rabbitMqSettings.ClientId);
 		var rabbitMQReference = new RabbitMQReference(rabbitMqSettings.ExchangeCommandName, rabbitMqSettings.QueueCommandName, rabbitMqSettings.ExchangeEventName, rabbitMqSettings.QueueEventName);
 		var mufloneConnectionFactory = new MufloneConnectionFactory(rabbitMQConfiguration, loggerFactory!);
-	
+
 		services.AddMufloneTransportRabbitMQ(loggerFactory, rabbitMQConfiguration, rabbitMQReference);
 
 		//It's important to build the previous services registrations or IEventBus and IPurchaseOrderService will be null 
+		//We need to improve this part. It's awful like it is right now
 		serviceProvider = services.BuildServiceProvider();
 		services.AddMufloneRabbitMQConsumers(new List<IConsumer>
 		{
@@ -36,8 +37,7 @@ public static class RabbitMqHelper
 			new ChangePurchaseOrderStatusToCompleteConsumer(repository, mufloneConnectionFactory, rabbitMQReference with { QueueCommandsName = nameof(ChangePurchaseOrderStatusToComplete) }, loggerFactory),
 
 			new PurchaseOrderCreatedConsumer(serviceProvider.GetRequiredService<IPurchaseOrderService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(PurchaseOrderCreated) }, loggerFactory),
-			new PurchaseOrderStatusChangedToCompleteConsumer(serviceProvider.GetRequiredService<IEventBus>(), serviceProvider.GetRequiredService<IPurchaseOrderService>(), mufloneConnectionFactory,
-				rabbitMQReference with { QueueEventsName = nameof(PurchaseOrderStatusChangedToComplete) }, loggerFactory)
+			new PurchaseOrderStatusChangedToCompleteConsumer(serviceProvider.GetRequiredService<IEventBus>(), serviceProvider.GetRequiredService<IPurchaseOrderService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(PurchaseOrderStatusChangedToComplete) }, loggerFactory)
 		});
 		return services;
 	}

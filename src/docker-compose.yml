@@ -84,19 +84,6 @@ services:
           - 5672:5672
           - 15672:15672
 
-  purchases-rest:
-      image: ${REGISTRY:-brewup}/purchases.rest:${PLATFORM:-linux}-${TAG:-latest}
-      build:
-        context: .
-        dockerfile: Purchases/Dockerfile
-      ports:
-          - 5000:80
-          - 5001:443
-      depends_on:
-        - purchases-eventstore
-        - purchases-mongodb
-        - rabbitmq
-
 volumes:
   purchases-eventstore-data:
   purchases-eventstore-logs:

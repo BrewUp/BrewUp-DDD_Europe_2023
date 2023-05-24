@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Brewup.Purchases.Messages\Brewup.Purchases.Messages.csproj" />
-    <ProjectReference Include="..\Brewup.Purchases.ReadModel\Brewup.Purchases.ReadModel.csproj" />
   </ItemGroup>
 
 </Project>
