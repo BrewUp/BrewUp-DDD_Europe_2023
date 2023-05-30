@@ -1,4 +1,6 @@
-﻿namespace Brewup.Purchases.ApplicationService.BindingModels;
+﻿using Brewup.Purchases.SharedKernel.DTOs;
+
+namespace Brewup.Purchases.ApplicationService.BindingModels;
 
 public static class Helpers
 {
@@ -7,7 +9,7 @@ public static class Helpers
 		return new SharedKernel.DTOs.OrderLine
 		{
 			BeerId = new SharedKernel.DomainIds.BeerId(orderLine.ProductId),
-			Title = orderLine.Title,
+			BeerName = new BeerName(orderLine.Title),
 			Quantity = new SharedKernel.DTOs.Quantity
 			{
 				Value = orderLine.Quantity.Value,
@@ -20,6 +22,6 @@ public static class Helpers
 			}
 		};
 	}
-	
+
 	public static IEnumerable<SharedKernel.DTOs.OrderLine> ToDto(this IEnumerable<OrderLine> orderLines) => orderLines.Select(ToDto);
 }

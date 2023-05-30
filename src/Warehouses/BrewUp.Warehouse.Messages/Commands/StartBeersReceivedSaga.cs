@@ -1,17 +1,19 @@
 ﻿using BrewUp.Warehouse.SharedKernel.DomainIds;
+using BrewUp.Warehouse.SharedKernel.Dtos;
 using Muflone.Messages.Commands;
 
 namespace BrewUp.Warehouse.Messages.Commands;
 
 public sealed class StartBeersReceivedSaga : Command
 {
-	public readonly BeerId BeerId;
-	public readonly BeerName BeerName;
+	public readonly PurchaseOrderId BuyOrderId;
 
-	public StartBeersReceivedSaga(BeerId aggregateId, Guid commitId, BeerName beerName)
-		: base(aggregateId, commitId)
+	public readonly IEnumerable<OrderLine> OrderLines;
+
+	public StartBeersReceivedSaga(PurchaseOrderId aggregateId, IEnumerable<OrderLine> orderLines)
+		: base(aggregateId)
 	{
-		BeerId = aggregateId;
-		BeerName = beerName;
+		BuyOrderId = aggregateId;
+		OrderLines = orderLines;
 	}
 }

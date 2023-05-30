@@ -1,21 +1,25 @@
-﻿using BrewUp.Warehouse.Messages.Events;
-using BrewUp.Warehouse.ReadModel.Services;
+﻿using BrewUp.Warehouse.Messages.Commands;
+using BrewUp.Warehouse.Messages.Events;
 using Microsoft.Extensions.Logging;
+using Muflone.Persistence;
 
 namespace BrewUp.Warehouse.ReadModel.EventHandlers;
 
 public sealed class BeersReceivedEventHandler : IntegrationEventHandlerBase<BeersReceived>
 {
-	private readonly IBeerService _beerService;
+	private readonly IServiceBus _serviceBus;
 
-	public BeersReceivedEventHandler(ILoggerFactory loggerFactory, IBeerService beerService) : base(loggerFactory)
+	public BeersReceivedEventHandler(ILoggerFactory loggerFactory, IServiceBus serviceBus) : base(loggerFactory)
 	{
-		_beerService = beerService;
+		_serviceBus = serviceBus;
 	}
 
-	public override Task HandleAsync(BeersReceived @event, CancellationToken cancellationToken = default)
+	public override async Task HandleAsync(BeersReceived @event, CancellationToken cancellationToken = default)
 	{
-		//TODO Implement saving beers to read model
-		return Task.CompletedTask;
+		foreach (var orderLine in @event.OrderLines)
+		{
+			var command = new CreateBeer(orderLine.BeerId, @event.MessageId, orderLine.BeerName);
+			await _serviceBus.SendAsync(command, cancellationToken);
+		}
 	}
 }

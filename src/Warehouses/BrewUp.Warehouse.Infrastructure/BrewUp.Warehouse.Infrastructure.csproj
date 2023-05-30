@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BrewUp.Warehouse.ApplicationServices\BrewUp.Warehouse.ApplicationServices.csproj" />
       <ProjectReference Include="..\BrewUp.Warehouse.ReadModel\BrewUp.Warehouse.ReadModel.csproj" />
       <ProjectReference Include="..\BrewUp.Warehouses.Domain\BrewUp.Warehouses.Domain.csproj" />
     </ItemGroup>
