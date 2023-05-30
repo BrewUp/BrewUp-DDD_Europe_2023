@@ -17,7 +17,7 @@ public class Order : AggregateRoot
 	{
 	}
 
-	public static Order Create(PurchaseOrderId id, SupplierId supplierId, DateTime date,
+	internal static Order Create(PurchaseOrderId id, SupplierId supplierId, DateTime date,
 		IEnumerable<SharedKernel.DTOs.OrderLine> lines)
 	{
 		return new Order(id, supplierId, date, lines);
