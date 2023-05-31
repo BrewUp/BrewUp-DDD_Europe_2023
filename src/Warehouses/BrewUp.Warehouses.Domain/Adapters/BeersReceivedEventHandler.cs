@@ -4,7 +4,7 @@ using BrewUp.Warehouse.SharedKernel.DomainIds;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
 
-namespace BrewUp.Warehouse.ReadModel.EventHandlers;
+namespace BrewUp.Warehouses.Domain.Adapters;
 
 public sealed class BeersReceivedEventHandler : IntegrationEventHandlerBase<BeersReceived>
 {
@@ -17,6 +17,10 @@ public sealed class BeersReceivedEventHandler : IntegrationEventHandlerBase<Beer
 
 	public override async Task HandleAsync(BeersReceived @event, CancellationToken cancellationToken = default)
 	{
+		//var correlationId = new Guid(@event.UserProperties.FirstOrDefault(u => u.Key.Equals("CorrelationId")).Value.ToString()!);
+		//if (correlationId.Equals(Guid.Empty))
+		//	return;
+	
 		foreach (var orderLine in @event.OrderLines)
 		{
 			var createBeer = new CreateBeer(orderLine.BeerId, @event.MessageId, orderLine.BeerName);

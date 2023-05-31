@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Muflone.Messages.Events;
 
-namespace BrewUp.Warehouse.ReadModel.EventHandlers;
+namespace BrewUp.Warehouses.Domain.Adapters;
 
 public abstract class IntegrationEventHandlerBase<T> : IntegrationEventHandlerAsync<T> where T : IntegrationEvent
 {
