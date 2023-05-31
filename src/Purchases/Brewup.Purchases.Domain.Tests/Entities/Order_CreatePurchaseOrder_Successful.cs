@@ -31,14 +31,14 @@ public class Order_CreatePurchaseOrder_Successful : CommandSpecification<CreateP
 			new()
 			{
 				BeerId = new BeerId(Guid.NewGuid()),
-				Title = "Product 1",
+				BeerName = new BeerName("Product 1"),
 				Quantity = new Quantity {UnitOfMeasure = "N.", Value = 1},
 				Price = new Price {Currency = "EUR", Value = 1}
 			},
 			new()
 			{
 				BeerId = new BeerId(Guid.NewGuid()),
-				Title = "Product 2",
+				BeerName = new BeerName("Product 2"),
 				Quantity = new Quantity {UnitOfMeasure = "N.", Value = 2},
 				Price = new Price {Currency = "EUR", Value = 2}
 			}
