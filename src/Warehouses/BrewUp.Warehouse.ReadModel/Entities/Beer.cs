@@ -28,11 +28,7 @@ public class Beer : EntityBase
 	public void UpdateStock(Stock stock)
 	{
 		Stock = stock.Value;
-	}
-
-	public void UpdateAvailability(Availability availability)
-	{
-		Availability = availability.Value;
+		Availability += Stock;
 	}
 
 	public BeerJson ToJson()

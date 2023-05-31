@@ -8,6 +8,10 @@ public sealed class Beer : AggregateRoot
 {
 	private BeerName _beerName;
 
+	private IEnumerable<StockMovement> _movements;
+
+	private Stock _stock;
+
 	protected Beer()
 	{ }
 
@@ -25,5 +29,29 @@ public sealed class Beer : AggregateRoot
 	{
 		Id = @event.BeerId;
 		_beerName = @event.BeerName;
+
+		_movements = Enumerable.Empty<StockMovement>();
+		_stock = new Stock(0);
 	}
+
+	#region LoadInStock
+	internal void LoadBeerInStock(BeerId beerId, Stock stock, PurchaseOrderId purchaseOrderId)
+	{
+		var movement = _movements.FirstOrDefault(m => m.PurchaseOrderId == purchaseOrderId);
+		if (movement is not null)
+			return;
+
+		var stockUpdated = new Stock(_stock.Value + stock.Value);
+
+		RaiseEvent(new BeerLoadedInStock(beerId, stockUpdated, purchaseOrderId));
+	}
+
+	private void Apply(BeerLoadedInStock @event)
+	{
+		_movements = _movements.Append(new StockMovement(@event.PurchaseOrderId, @event.BeerId,
+			new Stock(@event.Stock.Value - _stock.Value)));
+
+		_stock = @event.Stock;
+	}
+	#endregion
 }

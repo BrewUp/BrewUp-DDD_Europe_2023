@@ -1,5 +1,6 @@
 ﻿using BrewUp.Warehouse.Messages.Commands;
 using BrewUp.Warehouse.Messages.Events;
+using BrewUp.Warehouse.SharedKernel.DomainIds;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
 
@@ -18,8 +19,14 @@ public sealed class BeersReceivedEventHandler : IntegrationEventHandlerBase<Beer
 	{
 		foreach (var orderLine in @event.OrderLines)
 		{
-			var command = new CreateBeer(orderLine.BeerId, @event.MessageId, orderLine.BeerName);
-			await _serviceBus.SendAsync(command, cancellationToken);
+			var createBeer = new CreateBeer(orderLine.BeerId, @event.MessageId, orderLine.BeerName);
+			await _serviceBus.SendAsync(createBeer, cancellationToken);
+
+			// We know. a Saga would be better! ... but we are lazy :-)
+			Thread.Sleep(5000);
+
+			var loadBeerInStock = new LoadBeerInStock(orderLine.BeerId, new Stock((double)orderLine.Quantity.Value), @event.PurchaseOrderId);
+			await _serviceBus.SendAsync(loadBeerInStock, cancellationToken);
 		}
 	}
 }

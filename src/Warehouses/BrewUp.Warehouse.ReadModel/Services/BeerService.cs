@@ -31,4 +31,24 @@ public class BeerService : WarehouseBaseService, IBeerService
 			throw;
 		}
 	}
+
+	public async Task LoadBeerInStockAsync(BeerId beerId, Stock stock, CancellationToken cancellationToken = default)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		try
+		{
+			var beer = await Persister.GetByIdAsync<Beer>(beerId.ToString(), cancellationToken);
+			if (string.IsNullOrEmpty(beer.BeerName))
+				return;
+
+			beer.UpdateStock(stock);
+			await Persister.UpdateAsync(beer, cancellationToken);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex);
+			throw;
+		}
+	}
 }

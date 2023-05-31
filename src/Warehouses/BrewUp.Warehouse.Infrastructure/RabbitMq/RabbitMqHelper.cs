@@ -39,7 +39,10 @@ public static class RabbitMqHelper
 			new BeersReceivedConsumer(serviceProvider.GetRequiredService<IServiceBus>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(BeersReceived) }, loggerFactory),
 
 			new CreateBeerConsumer(repository!, mufloneConnectionFactory, rabbitMQReference with { QueueCommandsName = nameof(CreateBeer) }, loggerFactory),
-			new BeerCreatedConsumer(serviceProvider.GetRequiredService<IBeerService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(BeerCreated) }, loggerFactory)
+			new BeerCreatedConsumer(serviceProvider.GetRequiredService<IBeerService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(BeerCreated) }, loggerFactory),
+
+			new LoadBeerInStockConsumer(repository!, mufloneConnectionFactory, rabbitMQReference with { QueueCommandsName = nameof(LoadBeerInStock)}, loggerFactory),
+			new BeerLoadedInStockConsumer(serviceProvider.GetRequiredService<IBeerService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(BeerLoadedInStock) }, loggerFactory)
 		});
 
 		return services;

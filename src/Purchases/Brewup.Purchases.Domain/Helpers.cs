@@ -9,9 +9,9 @@ public static class Helpers
 		return lines.Select(x => new OrderLine
 		{
 			BeerId = x.BeerId,
+			BeerName = new BeerName(x.Title),
 			Price = new Price { Currency = x.Price.Currency, Value = x.Price.Value },
-			Quantity = new Quantity { UnitOfMeasure = x.Quantity.UnitOfMeasure, Value = x.Quantity.Value },
-			Title = x.Title
+			Quantity = new Quantity { UnitOfMeasure = x.Quantity.UnitOfMeasure, Value = x.Quantity.Value }
 		});
 	}
 
@@ -19,7 +19,7 @@ public static class Helpers
 	{
 		return lines.Select(x => new Entities.OrderLine(
 			x.BeerId,
-			x.Title,
+			x.BeerName.Value,
 			new Entities.Quantity(x.Quantity.Value, x.Quantity.UnitOfMeasure),
 			new Entities.Price(x.Price.Value, x.Price.Currency)));
 	}
