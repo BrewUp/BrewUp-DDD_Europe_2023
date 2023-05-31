@@ -40,7 +40,7 @@ public class Order_UpdatePurchaseOrderStatusToComplete_ChangeStatus : CommandSpe
 				Quantity = new Quantity { UnitOfMeasure = "N.", Value = 2 },
 				Price = new Price { Currency = "EUR", Value = 2 }
 			}
-		});
+		}).ToList();
 	}
 
 	protected override IEnumerable<DomainEvent> Given()

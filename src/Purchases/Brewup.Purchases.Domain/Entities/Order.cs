@@ -47,9 +47,7 @@ public class Order : AggregateRoot
 	public void Complete()
 	{
 		if (!_status.Equals(Status.Complete))
-		{
 			RaiseEvent(new PurchaseOrderStatusChangedToComplete((PurchaseOrderId)Id, _lines.ToDtos()));
-		}
 	}
 
 	private void Apply(PurchaseOrderStatusChangedToComplete @event)

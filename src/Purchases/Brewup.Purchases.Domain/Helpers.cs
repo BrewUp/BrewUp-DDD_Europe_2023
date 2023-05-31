@@ -12,7 +12,7 @@ public static class Helpers
 			BeerName = new BeerName(x.Title),
 			Price = new Price { Currency = x.Price.Currency, Value = x.Price.Value },
 			Quantity = new Quantity { UnitOfMeasure = x.Quantity.UnitOfMeasure, Value = x.Quantity.Value }
-		});
+		}).ToList();
 	}
 
 	public static IEnumerable<Entities.OrderLine> ToEntities(this IEnumerable<OrderLine> lines)
@@ -21,6 +21,6 @@ public static class Helpers
 			x.BeerId,
 			x.BeerName.Value,
 			new Entities.Quantity(x.Quantity.Value, x.Quantity.UnitOfMeasure),
-			new Entities.Price(x.Price.Value, x.Price.Currency)));
+			new Entities.Price(x.Price.Value, x.Price.Currency))).ToList();
 	}
 }
