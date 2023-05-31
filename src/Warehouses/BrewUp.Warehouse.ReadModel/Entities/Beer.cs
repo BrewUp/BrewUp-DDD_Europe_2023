@@ -5,9 +5,9 @@ namespace BrewUp.Warehouse.ReadModel.Entities;
 
 public class Beer : EntityBase
 {
-	public string BeerName { get; private set; } = string.Empty;
-	public double Stock { get; private set; } = 0;
-	public double Availability { get; private set; } = 0;
+	public string BeerName { get; } = string.Empty;
+	public decimal Stock { get; private set; } = 0;
+	public decimal Availability { get; private set; } = 0;
 
 	protected Beer()
 	{ }

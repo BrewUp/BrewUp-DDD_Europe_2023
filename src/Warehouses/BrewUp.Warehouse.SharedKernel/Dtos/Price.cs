@@ -1,3 +1,3 @@
 ﻿namespace BrewUp.Warehouse.SharedKernel.Dtos;
 
-public record Price(double Value, string Currency);
+public record Price(decimal Value, string Currency);

@@ -4,10 +4,10 @@ namespace Brewup.Purchases.Domain.Entities;
 
 public class Price : ValueObject
 {
-	public double Value { get; }
+	public decimal Value { get; }
 	public string Currency { get; }
 
-	public Price(double value, string currency)
+	public Price(decimal value, string currency)
 	{
 		Value = value;
 		Currency = currency;

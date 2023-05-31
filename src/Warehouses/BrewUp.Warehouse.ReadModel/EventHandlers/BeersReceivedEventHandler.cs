@@ -22,10 +22,10 @@ public sealed class BeersReceivedEventHandler : IntegrationEventHandlerBase<Beer
 			var createBeer = new CreateBeer(orderLine.BeerId, @event.MessageId, orderLine.BeerName);
 			await _serviceBus.SendAsync(createBeer, cancellationToken);
 
-			// We know. a Saga would be better! ... but we are lazy :-)
+			// We know, a Saga would be better! ... but we are lazy :-)
 			Thread.Sleep(5000);
 
-			var loadBeerInStock = new LoadBeerInStock(orderLine.BeerId, new Stock((double)orderLine.Quantity.Value), @event.PurchaseOrderId);
+			var loadBeerInStock = new LoadBeerInStock(orderLine.BeerId, new Stock(orderLine.Quantity.Value), @event.PurchaseOrderId);
 			await _serviceBus.SendAsync(loadBeerInStock, cancellationToken);
 		}
 	}
