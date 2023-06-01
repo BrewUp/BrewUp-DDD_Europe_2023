@@ -29,3 +29,6 @@ to run tests:
     dotnet test
 
 
+### From Visual Studio 2022 (Community edition and greater versions)
+
+Just open the solution files in folders `purchases` and `warehouse` and press F5
