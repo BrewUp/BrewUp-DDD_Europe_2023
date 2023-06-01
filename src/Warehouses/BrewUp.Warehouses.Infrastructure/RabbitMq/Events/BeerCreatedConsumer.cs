@@ -5,10 +5,12 @@ using BrewUp.Warehouses.Sagas.Sagas;
 using Microsoft.Extensions.Logging;
 using Muflone.Messages.Events;
 using Muflone.Persistence;
+using Muflone.Saga;
 using Muflone.Saga.Persistence;
 using Muflone.Transport.RabbitMQ.Abstracts;
 using Muflone.Transport.RabbitMQ.Consumers;
 using Muflone.Transport.RabbitMQ.Models;
+using Muflone.Transport.RabbitMQ.Saga.Consumers;
 
 namespace BrewUp.Warehouses.Infrastructure.RabbitMq.Events;
 
@@ -25,8 +27,23 @@ public sealed class BeerCreatedConsumer : DomainEventsConsumerBase<BeerCreated>
 	{
 		HandlersAsync = new List<IDomainEventHandlerAsync<BeerCreated>>
 		{
-			new BeerCreatedEventHandler(loggerFactory, beerService),
-			new BeersReceivedSaga(serviceBus, sagaRepository, loggerFactory)
+			new BeerCreatedEventHandler(loggerFactory, beerService)
 		};
 	}
+}
+
+public sealed class BeerCreatedSagaConsumer : SagaEventConsumerBase<BeerCreated>
+{
+	public BeerCreatedSagaConsumer(
+		IServiceBus serviceBus,
+		ISagaRepository sagaRepository,
+		IMufloneConnectionFactory mufloneConnectionFactory,
+		RabbitMQReference rabbitMQReference, ILoggerFactory loggerFactory) : base(mufloneConnectionFactory,
+		rabbitMQReference, loggerFactory)
+	{
+		HandlerAsync = new BeersReceivedSaga(serviceBus, sagaRepository, loggerFactory);
+	}
+
+
+	protected override ISagaEventHandlerAsync<BeerCreated> HandlerAsync { get; } 
 }

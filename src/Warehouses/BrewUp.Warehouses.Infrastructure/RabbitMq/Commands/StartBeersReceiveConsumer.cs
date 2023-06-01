@@ -1,20 +1,18 @@
 ﻿using BrewUp.Warehouses.Messages.Commands;
 using BrewUp.Warehouses.Sagas.Sagas;
 using Microsoft.Extensions.Logging;
-using Muflone.Messages.Commands;
 using Muflone.Persistence;
+using Muflone.Saga;
 using Muflone.Saga.Persistence;
 using Muflone.Transport.RabbitMQ.Abstracts;
-using Muflone.Transport.RabbitMQ.Consumers;
 using Muflone.Transport.RabbitMQ.Models;
+using Muflone.Transport.RabbitMQ.Saga.Consumers;
 
 namespace BrewUp.Warehouses.Infrastructure.RabbitMq.Commands;
 
-public sealed class StartBeersReceiveConsumer : CommandConsumerBase<StartBeersReceivedSaga>
+public sealed class StartBeersReceivedSagaConsumer : SagaStartedByConsumerBase<StartBeersReceivedSaga>
 {
-	protected override ICommandHandlerAsync<StartBeersReceivedSaga> HandlerAsync { get; }
-
-	public StartBeersReceiveConsumer(IServiceBus serviceBus,
+	public StartBeersReceivedSagaConsumer(IServiceBus serviceBus,
 		ISagaRepository sagaRepository,
 		IRepository repository,
 		IMufloneConnectionFactory mufloneConnectionFactory,
@@ -23,4 +21,6 @@ public sealed class StartBeersReceiveConsumer : CommandConsumerBase<StartBeersRe
 	{
 		HandlerAsync = new BeersReceivedSaga(serviceBus, sagaRepository, loggerFactory);
 	}
+
+	protected override ISagaStartedByAsync<StartBeersReceivedSaga> HandlerAsync { get; }
 }
