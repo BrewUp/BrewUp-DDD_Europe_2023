@@ -1,11 +1,11 @@
-﻿using BrewUp.Warehouse.Messages.Commands;
-using BrewUp.Warehouse.Messages.Events;
+﻿using BrewUp.Warehouses.Messages.Commands;
+using BrewUp.Warehouses.Messages.Events;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
 using Muflone.Saga;
 using Muflone.Saga.Persistence;
-using BrewUp.Warehouse.SharedKernel.DomainIds;
-using BrewUp.Warehouse.SharedKernel.Dtos;
+using BrewUp.Warehouses.SharedKernel.DomainIds;
+using BrewUp.Warehouses.SharedKernel.Dtos;
 using Muflone.Messages.Commands;
 using Muflone.Messages.Events;
 

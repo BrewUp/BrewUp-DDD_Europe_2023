@@ -1,4 +1,4 @@
-﻿using BrewUp.Warehouse.Messages.Commands;
+﻿using BrewUp.Warehouses.Messages.Commands;
 using BrewUp.Warehouses.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;

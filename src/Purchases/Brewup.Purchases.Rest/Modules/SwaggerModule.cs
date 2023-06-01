@@ -19,7 +19,7 @@ public sealed class SwaggerModule : IModule
 		builder.Services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new OpenApiInfo()
 		{
 			Description = "BrewUp API - Purchases REST Service",
-			Title = "BrewUp Api - Purchases",
+			Title = "BrewUp API - Purchases",
 			Version = "v1",
 			Contact = new OpenApiContact
 			{

@@ -7,23 +7,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "90 Presentation", "90 Prese
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "60 ApplicationServices", "60 ApplicationServices", "{DEBC9690-E88C-4A28-8C87-91BCA23B7331}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouse.ApplicationServices", "BrewUp.Warehouse.ApplicationServices\BrewUp.Warehouse.ApplicationServices.csproj", "{13B78E1A-AB0A-4EE0-A442-83CCBDB8C954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouses.ApplicationServices", "BrewUp.Warehouses.ApplicationServices\BrewUp.Warehouses.ApplicationServices.csproj", "{13B78E1A-AB0A-4EE0-A442-83CCBDB8C954}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "40 ReadModel", "40 ReadModel", "{258E9590-22EA-4119-91CA-D67A9FD5E3EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouse.ReadModel", "BrewUp.Warehouse.ReadModel\BrewUp.Warehouse.ReadModel.csproj", "{FF3B8FF9-F0C5-450F-ABBB-3049C42EF32B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouses.ReadModel", "BrewUp.Warehouses.ReadModel\BrewUp.Warehouses.ReadModel.csproj", "{FF3B8FF9-F0C5-450F-ABBB-3049C42EF32B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "50 Infrastructures", "50 Infrastructures", "{263DF843-6A5E-4D6A-985F-75DB68AA781A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouse.Infrastructure", "BrewUp.Warehouse.Infrastructure\BrewUp.Warehouse.Infrastructure.csproj", "{49809E19-499A-4A43-85DB-1342722A7110}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouses.Infrastructure", "BrewUp.Warehouses.Infrastructure\BrewUp.Warehouses.Infrastructure.csproj", "{49809E19-499A-4A43-85DB-1342722A7110}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "30 Shared", "30 Shared", "{2E2D0DEB-C3F5-4127-89B4-D60D52E20EF1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouses.Rest", "BrewUp.Warehouses.Rest\BrewUp.Warehouses.Rest.csproj", "{6516C247-4C11-4C5E-A064-365ABE37D129}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouse.Messages", "BrewUp.Warehouse.Messages\BrewUp.Warehouse.Messages.csproj", "{FAFB661C-D0B9-45EF-BF1B-A236DEF5EEB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouses.Messages", "BrewUp.Warehouses.Messages\BrewUp.Warehouses.Messages.csproj", "{FAFB661C-D0B9-45EF-BF1B-A236DEF5EEB7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouse.SharedKernel", "BrewUp.Warehouse.SharedKernel\BrewUp.Warehouse.SharedKernel.csproj", "{6976C6F8-19BE-4D36-B92B-B5B81CA11323}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrewUp.Warehouses.SharedKernel", "BrewUp.Warehouses.SharedKernel\BrewUp.Warehouses.SharedKernel.csproj", "{6976C6F8-19BE-4D36-B92B-B5B81CA11323}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 Domain", "10 Domain", "{7811CCBE-281F-4A44-B567-3BD61B432EA9}"
 EndProject

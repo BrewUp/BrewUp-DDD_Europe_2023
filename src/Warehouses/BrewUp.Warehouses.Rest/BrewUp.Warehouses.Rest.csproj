@@ -23,8 +23,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\BrewUp.Warehouse.ApplicationServices\BrewUp.Warehouse.ApplicationServices.csproj" />
-	  <ProjectReference Include="..\BrewUp.Warehouse.Infrastructure\BrewUp.Warehouse.Infrastructure.csproj" />
+	  <ProjectReference Include="..\BrewUp.Warehouses.ApplicationServices\BrewUp.Warehouses.ApplicationServices.csproj" />
+	  <ProjectReference Include="..\BrewUp.Warehouses.Infrastructure\BrewUp.Warehouses.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

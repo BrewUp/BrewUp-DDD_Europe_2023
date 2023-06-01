@@ -18,8 +18,8 @@ namespace BrewUp.Warehouses.Rest.Modules
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new OpenApiInfo()
 			{
-				Description = "BrewUp API",
-				Title = "BrewUp Api",
+				Description = "BrewUp API - Warehouse REST Service",
+				Title = "BrewUp API - Warehouse",
 				Version = "v1",
 				Contact = new OpenApiContact
 				{

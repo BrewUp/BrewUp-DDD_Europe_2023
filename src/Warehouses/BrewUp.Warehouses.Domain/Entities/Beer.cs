@@ -1,6 +1,6 @@
-﻿using BrewUp.Warehouse.Messages.Events;
-using BrewUp.Warehouse.SharedKernel.DomainIds;
-using BrewUp.Warehouse.SharedKernel.Dtos;
+﻿using BrewUp.Warehouses.Messages.Events;
+using BrewUp.Warehouses.SharedKernel.DomainIds;
+using BrewUp.Warehouses.SharedKernel.Dtos;
 using Muflone.Core;
 
 namespace BrewUp.Warehouses.Domain.Entities;

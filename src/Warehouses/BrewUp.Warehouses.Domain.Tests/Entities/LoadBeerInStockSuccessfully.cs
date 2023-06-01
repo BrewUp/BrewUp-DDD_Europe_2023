@@ -1,7 +1,7 @@
-﻿using BrewUp.Warehouse.Messages.Commands;
-using BrewUp.Warehouse.Messages.Events;
-using BrewUp.Warehouse.SharedKernel.DomainIds;
-using BrewUp.Warehouse.SharedKernel.Dtos;
+﻿using BrewUp.Warehouses.Messages.Commands;
+using BrewUp.Warehouses.Messages.Events;
+using BrewUp.Warehouses.SharedKernel.DomainIds;
+using BrewUp.Warehouses.SharedKernel.Dtos;
 using BrewUp.Warehouses.Domain.CommandHandlers;
 using Microsoft.Extensions.Logging.Abstractions;
 using Muflone.Messages.Commands;

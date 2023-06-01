@@ -1,5 +1,5 @@
-﻿using BrewUp.Warehouse.ApplicationServices;
-using BrewUp.Warehouse.ApplicationServices.Endpoints;
+﻿using BrewUp.Warehouses.ApplicationServices;
+using BrewUp.Warehouses.ApplicationServices.Endpoints;
 
 namespace BrewUp.Warehouses.Rest.Modules;
 

@@ -1,6 +1,6 @@
-﻿using BrewUp.Warehouse.Infrastructure;
-using BrewUp.Warehouse.Infrastructure.MongoDb;
-using BrewUp.Warehouse.Infrastructure.RabbitMq;
+﻿using BrewUp.Warehouses.Infrastructure;
+using BrewUp.Warehouses.Infrastructure.MongoDb;
+using BrewUp.Warehouses.Infrastructure.RabbitMq;
 
 namespace BrewUp.Warehouses.Rest.Modules;
 
