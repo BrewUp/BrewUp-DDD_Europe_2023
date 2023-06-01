@@ -1,6 +1,5 @@
 ﻿using BrewUp.Warehouse.ReadModel.Entities;
 using Microsoft.Extensions.Logging;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using Muflone.Eventstore;
 using Muflone.Eventstore.Persistence;
@@ -9,15 +8,14 @@ namespace BrewUp.Warehouse.Infrastructure.MongoDb.Readmodel;
 
 public class EventStorePositionRepository : IEventStorePositionRepository
 {
-	private readonly IMongoDatabase database;
-	private readonly ILogger<EventStorePositionRepository> logger;
+	private readonly IMongoDatabase _database;
+	private readonly ILogger<EventStorePositionRepository> _logger;
 
 	public EventStorePositionRepository(ILogger<EventStorePositionRepository> logger, MongoDbSettings mongoDbSettings)
 	{
-		this.logger = logger;
-		BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
+		this._logger = logger;
 		var client = new MongoClient(mongoDbSettings.ConnectionString);
-		database = client.GetDatabase(
+		_database = client.GetDatabase(
 			mongoDbSettings.DatabaseName);
 	}
 
@@ -25,7 +23,7 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 	{
 		try
 		{
-			var collection = database.GetCollection<LastEventPosition>(nameof(LastEventPosition));
+			var collection = _database.GetCollection<LastEventPosition>(nameof(LastEventPosition));
 			var filter = Builders<LastEventPosition>.Filter.Eq("_id", Constants.LastEventPositionKey);
 			var result = await collection.CountDocumentsAsync(filter) > 0
 				? (await collection.FindAsync(filter)).First()
@@ -41,7 +39,7 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 		}
 		catch (Exception e)
 		{
-			logger.LogError(
+			_logger.LogError(
 				$"EventStorePositionRepository: Error getting LastSavedPostion, Message: {e.Message}, StackTrace: {e.StackTrace}");
 			throw;
 		}
@@ -51,7 +49,7 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 	{
 		try
 		{
-			var collection = database.GetCollection<LastEventPosition>(typeof(LastEventPosition).Name);
+			var collection = _database.GetCollection<LastEventPosition>(typeof(LastEventPosition).Name);
 			var filter = Builders<LastEventPosition>.Filter.Eq("_id", Constants.LastEventPositionKey);
 			var entity = await collection.Find(filter).FirstOrDefaultAsync();
 			if (entity == null)
@@ -76,7 +74,7 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 		}
 		catch (Exception e)
 		{
-			logger.LogError(
+			_logger.LogError(
 				$"EventStorePositionRepository: Error while updating commit position: {e.Message}, StackTrace: {e.StackTrace}");
 			throw;
 		}

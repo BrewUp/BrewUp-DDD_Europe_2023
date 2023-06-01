@@ -10,6 +10,7 @@
       <ProjectReference Include="..\BrewUp.Warehouse.ApplicationServices\BrewUp.Warehouse.ApplicationServices.csproj" />
       <ProjectReference Include="..\BrewUp.Warehouse.ReadModel\BrewUp.Warehouse.ReadModel.csproj" />
       <ProjectReference Include="..\BrewUp.Warehouses.Domain\BrewUp.Warehouses.Domain.csproj" />
+      <ProjectReference Include="..\BrewUp.Warehouses.Sagas\BrewUp.Warehouses.Sagas.csproj" />
     </ItemGroup>
 
     <ItemGroup>

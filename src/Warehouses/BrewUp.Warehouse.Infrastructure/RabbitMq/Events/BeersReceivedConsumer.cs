@@ -1,6 +1,5 @@
 ﻿using BrewUp.Warehouse.Messages.Events;
-using BrewUp.Warehouse.ReadModel.EventHandlers;
-using BrewUp.Warehouses.Domain.Adapters;
+using BrewUp.Warehouses.Sagas.Adapters;
 using Microsoft.Extensions.Logging;
 using Muflone.Messages.Events;
 using Muflone.Persistence;

@@ -6,14 +6,14 @@ namespace BrewUp.Warehouse.Messages.Commands;
 
 public sealed class StartBeersReceivedSaga : Command
 {
-	public readonly PurchaseOrderId BuyOrderId;
+	public readonly PurchaseOrderId PurchaseOrderId;
 
 	public readonly IEnumerable<OrderLine> OrderLines;
 
 	public StartBeersReceivedSaga(PurchaseOrderId aggregateId, IEnumerable<OrderLine> orderLines)
 		: base(aggregateId)
 	{
-		BuyOrderId = aggregateId;
+		PurchaseOrderId = aggregateId;
 		OrderLines = orderLines;
 	}
 }

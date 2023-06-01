@@ -39,7 +39,7 @@ public class BeerService : WarehouseBaseService, IBeerService
 		try
 		{
 			var beer = await Persister.GetByIdAsync<Beer>(beerId.ToString(), cancellationToken);
-			if (string.IsNullOrEmpty(beer.BeerName))
+			if (string.IsNullOrEmpty(beer.Id))
 				return;
 
 			beer.UpdateStock(stock);
