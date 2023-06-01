@@ -27,7 +27,7 @@ public class PurchasesModule : IModule
 
 		group.MapPost("/Order", PurchasesEndpoints.HandleCreateOrder)
 			.Produces(StatusCodes.Status400BadRequest)
-			.Produces(StatusCodes.Status200OK)
+			.Produces(StatusCodes.Status201Created)
 			.WithName("CreateOrder");
 
 		group.MapPost("/Order/{id}/complete", PurchasesEndpoints.HandleSetOrderStatusToComplete)

@@ -1,5 +1,6 @@
 ﻿using BrewUp.Warehouse.ReadModel.Entities;
 using BrewUp.Warehouse.SharedKernel.DomainIds;
+using BrewUp.Warehouse.SharedKernel.Dtos;
 using Microsoft.Extensions.Logging;
 
 namespace BrewUp.Warehouse.ReadModel.Services;

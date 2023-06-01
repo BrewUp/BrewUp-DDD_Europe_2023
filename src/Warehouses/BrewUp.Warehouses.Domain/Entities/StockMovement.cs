@@ -15,7 +15,8 @@ public sealed class StockMovement : Entity
 	internal PurchaseOrderId PurchaseOrderId => _purchaseOrderId;
 
 	protected StockMovement()
-	{ }
+	{
+	}
 
 	internal StockMovement(PurchaseOrderId purchaseOrderId, BeerId beerId, Stock stock)
 	{

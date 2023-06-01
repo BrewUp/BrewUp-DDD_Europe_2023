@@ -1,5 +1,6 @@
 ﻿using BrewUp.Warehouse.Messages.Events;
 using BrewUp.Warehouse.SharedKernel.DomainIds;
+using BrewUp.Warehouse.SharedKernel.Dtos;
 using Muflone.Core;
 
 namespace BrewUp.Warehouses.Domain.Entities;
@@ -12,8 +13,9 @@ public sealed class Beer : AggregateRoot
 
 	private Stock _stock;
 
-	protected Beer()
-	{ }
+	internal Beer()
+	{
+	}
 
 	internal static Beer CreateBeer(BeerId beerId, BeerName beerName, Guid correlationId)
 	{
@@ -29,21 +31,26 @@ public sealed class Beer : AggregateRoot
 	{
 		Id = @event.BeerId;
 		_beerName = @event.BeerName;
-
 		_movements = Enumerable.Empty<StockMovement>();
 		_stock = new Stock(0);
 	}
 
 	#region LoadInStock
-	internal void LoadBeerInStock(BeerId beerId, Stock stock, PurchaseOrderId purchaseOrderId, Guid correlationId)
+
+	internal void LoadBeerInStock(BeerId beerId, Stock stock, Price price, PurchaseOrderId purchaseOrderId,
+		Guid correlationId)
 	{
 		var movement = _movements.FirstOrDefault(m => m.PurchaseOrderId == purchaseOrderId);
 		if (movement is not null)
 			return;
 
-		var stockUpdated = new Stock(_stock.Value + stock.Value);
-
-		RaiseEvent(new BeerLoadedInStock(beerId, correlationId, stockUpdated, purchaseOrderId));
+		RaiseEvent(new BeerLoadedInStock(
+			beerId,
+			correlationId,
+			new Stock(_stock.Value + stock.Value),
+			new Price(price.Value, price.Currency),
+			purchaseOrderId)
+		);
 	}
 
 	private void Apply(BeerLoadedInStock @event)
@@ -53,5 +60,6 @@ public sealed class Beer : AggregateRoot
 
 		_stock = @event.Stock;
 	}
+
 	#endregion
 }

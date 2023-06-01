@@ -1,6 +1,7 @@
 ﻿using BrewUp.Warehouse.Messages.Commands;
 using BrewUp.Warehouse.Messages.Events;
 using BrewUp.Warehouse.SharedKernel.DomainIds;
+using BrewUp.Warehouse.SharedKernel.Dtos;
 using BrewUp.Warehouses.Domain.CommandHandlers;
 using Microsoft.Extensions.Logging.Abstractions;
 using Muflone.Messages.Commands;
@@ -14,9 +15,10 @@ public sealed class LoadBeerInStockSuccessfully : CommandSpecification<LoadBeerI
 	private readonly BeerId _beerId = new(Guid.NewGuid());
 	private readonly BeerName _beerName = new("Muflone IPA");
 	private readonly Stock _stock = new(10);
+	private readonly Price _price = new(10, "EUR");
 	private readonly PurchaseOrderId _purchaseOrderId = new(Guid.NewGuid());
 
-	public readonly Guid _correlationId = Guid.NewGuid();
+	private readonly Guid _correlationId = Guid.NewGuid();
 
 	protected override IEnumerable<DomainEvent> Given()
 	{
@@ -25,7 +27,7 @@ public sealed class LoadBeerInStockSuccessfully : CommandSpecification<LoadBeerI
 
 	protected override LoadBeerInStock When()
 	{
-		return new LoadBeerInStock(_beerId, _correlationId, _stock, _purchaseOrderId);
+		return new LoadBeerInStock(_beerId, _correlationId, _stock, _price, _purchaseOrderId);
 	}
 
 	protected override ICommandHandlerAsync<LoadBeerInStock> OnHandler()
@@ -35,6 +37,6 @@ public sealed class LoadBeerInStockSuccessfully : CommandSpecification<LoadBeerI
 
 	protected override IEnumerable<DomainEvent> Expect()
 	{
-		yield return new BeerLoadedInStock(_beerId, _correlationId, _stock, _purchaseOrderId);
+		yield return new BeerLoadedInStock(_beerId, _correlationId, _stock, _price, _purchaseOrderId);
 	}
 }

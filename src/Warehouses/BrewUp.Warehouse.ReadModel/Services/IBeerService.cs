@@ -1,4 +1,5 @@
 ﻿using BrewUp.Warehouse.SharedKernel.DomainIds;
+using BrewUp.Warehouse.SharedKernel.Dtos;
 
 namespace BrewUp.Warehouse.ReadModel.Services;
 

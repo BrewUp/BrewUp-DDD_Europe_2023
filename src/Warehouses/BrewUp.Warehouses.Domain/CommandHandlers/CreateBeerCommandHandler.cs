@@ -5,9 +5,10 @@ using Muflone.Persistence;
 
 namespace BrewUp.Warehouses.Domain.CommandHandlers;
 
-public sealed class CreateBeerCommandHandler : CommandHandlerBaseAsync<CreateBeer>
+public sealed class CreateBeerCommandHandler : CommandHandlerBase<CreateBeer>
 {
-	public CreateBeerCommandHandler(IRepository repository, ILoggerFactory loggerFactory) : base(repository, loggerFactory)
+	public CreateBeerCommandHandler(IRepository repository, ILoggerFactory loggerFactory) : base(repository,
+		loggerFactory)
 	{
 	}
 

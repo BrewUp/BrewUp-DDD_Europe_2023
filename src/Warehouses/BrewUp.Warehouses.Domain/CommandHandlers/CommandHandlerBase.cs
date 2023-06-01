@@ -4,9 +4,9 @@ using Muflone.Persistence;
 
 namespace BrewUp.Warehouses.Domain.CommandHandlers;
 
-public abstract class CommandHandlerBaseAsync<TCommand> : CommandHandlerAsync<TCommand> where TCommand : class, ICommand
+public abstract class CommandHandlerBase<TCommand> : CommandHandlerAsync<TCommand> where TCommand : class, ICommand
 {
-	protected CommandHandlerBaseAsync(IRepository repository, ILoggerFactory loggerFactory) : base(repository, loggerFactory)
+	protected CommandHandlerBase(IRepository repository, ILoggerFactory loggerFactory) : base(repository, loggerFactory)
 	{
 	}
 
