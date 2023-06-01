@@ -1,6 +1,8 @@
 ﻿using BrewUp.Warehouse.Messages.Commands;
 using BrewUp.Warehouse.Messages.Events;
 using BrewUp.Warehouse.SharedKernel.DomainIds;
+using BrewUp.Warehouses.Domain.CommandHandlers;
+using Microsoft.Extensions.Logging.Abstractions;
 using Muflone.Messages.Commands;
 using Muflone.Messages.Events;
 using Muflone.SpecificationTests;
@@ -9,9 +11,10 @@ namespace BrewUp.Warehouses.Domain.Tests.Entities;
 
 public sealed class LoadBeerInStockSuccessfully : CommandSpecification<LoadBeerInStock>
 {
-	public readonly BeerId _beerId = new(Guid.NewGuid());
-	public readonly BeerName _beerName = new("Muflone IPA");
-	public readonly Stock _stock = new(10);
+	private readonly BeerId _beerId = new(Guid.NewGuid());
+	private readonly BeerName _beerName = new("Muflone IPA");
+	private readonly Stock _stock = new(10);
+	private readonly PurchaseOrderId _purchaseOrderId = new(Guid.NewGuid());
 
 	public readonly Guid _correlationId = Guid.NewGuid();
 
@@ -22,16 +25,16 @@ public sealed class LoadBeerInStockSuccessfully : CommandSpecification<LoadBeerI
 
 	protected override LoadBeerInStock When()
 	{
-		throw new NotImplementedException();
+		return new LoadBeerInStock(_beerId, _correlationId, _stock, _purchaseOrderId);
 	}
 
 	protected override ICommandHandlerAsync<LoadBeerInStock> OnHandler()
 	{
-		throw new NotImplementedException();
+		return new LoadBeerInStockCommandHandler(Repository, new NullLoggerFactory());
 	}
 
 	protected override IEnumerable<DomainEvent> Expect()
 	{
-		throw new NotImplementedException();
+		yield return new BeerLoadedInStock(_beerId, _correlationId, _stock, _purchaseOrderId);
 	}
 }

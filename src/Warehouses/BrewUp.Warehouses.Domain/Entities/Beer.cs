@@ -35,7 +35,7 @@ public sealed class Beer : AggregateRoot
 	}
 
 	#region LoadInStock
-	internal void LoadBeerInStock(BeerId beerId, Stock stock, PurchaseOrderId purchaseOrderId)
+	internal void LoadBeerInStock(BeerId beerId, Stock stock, PurchaseOrderId purchaseOrderId, Guid correlationId)
 	{
 		var movement = _movements.FirstOrDefault(m => m.PurchaseOrderId == purchaseOrderId);
 		if (movement is not null)
@@ -43,7 +43,7 @@ public sealed class Beer : AggregateRoot
 
 		var stockUpdated = new Stock(_stock.Value + stock.Value);
 
-		RaiseEvent(new BeerLoadedInStock(beerId, stockUpdated, purchaseOrderId));
+		RaiseEvent(new BeerLoadedInStock(beerId, correlationId, stockUpdated, purchaseOrderId));
 	}
 
 	private void Apply(BeerLoadedInStock @event)

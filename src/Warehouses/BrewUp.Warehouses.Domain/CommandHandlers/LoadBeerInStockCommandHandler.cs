@@ -14,7 +14,7 @@ public sealed class LoadBeerInStockCommandHandler : CommandHandlerBaseAsync<Load
 	public override async Task ProcessCommand(LoadBeerInStock command, CancellationToken cancellationToken = default)
 	{
 		var aggregate = await Repository.GetByIdAsync<Beer>(command.BeerId.Value);
-		aggregate.LoadBeerInStock(command.BeerId, command.Stock, command.PurchaseOrderId);
+		aggregate.LoadBeerInStock(command.BeerId, command.Stock, command.PurchaseOrderId, command.MessageId);
 		Logger.LogInformation($"Beer loaded in stock aggregateId: {aggregate.Id.Value}");
 		await Repository.SaveAsync(aggregate, Guid.NewGuid());
 	}

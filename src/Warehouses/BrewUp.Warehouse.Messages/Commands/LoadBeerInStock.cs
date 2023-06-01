@@ -9,7 +9,7 @@ public sealed class LoadBeerInStock : Command
 	public readonly Stock Stock;
 	public readonly PurchaseOrderId PurchaseOrderId;
 
-	public LoadBeerInStock(BeerId aggregateId, Stock stock, PurchaseOrderId purchaseOrderId) : base(aggregateId)
+	public LoadBeerInStock(BeerId aggregateId, Guid commitId, Stock stock, PurchaseOrderId purchaseOrderId) : base(aggregateId, commitId)
 	{
 		BeerId = aggregateId;
 		Stock = stock;

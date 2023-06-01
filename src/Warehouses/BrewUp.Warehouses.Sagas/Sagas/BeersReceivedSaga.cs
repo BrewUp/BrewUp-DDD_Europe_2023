@@ -28,7 +28,8 @@ public sealed class BeersReceivedSaga : Saga<BeersReceivedSagaState>,
 		SagaState = new BeersReceivedSagaState
 		{
 			PurchaseOrderId = command.PurchaseOrderId.Value.ToString(),
-			OrderLines = command.OrderLines
+			OrderLines = command.OrderLines,
+			StartedAt = DateTime.UtcNow
 		};
 		await Repository.SaveAsync(command.MessageId, SagaState);
 
@@ -50,12 +51,19 @@ public sealed class BeersReceivedSaga : Saga<BeersReceivedSagaState>,
 		if (orderLine == null)
 			return;
 
-		var loadBeerInStock = new LoadBeerInStock(@event.BeerId, new Stock(orderLine.Quantity.Value), new PurchaseOrderId(new Guid(sagaState.PurchaseOrderId)));
+		var loadBeerInStock = new LoadBeerInStock(@event.BeerId, correlationId, new Stock(orderLine.Quantity.Value),
+			new PurchaseOrderId(new Guid(sagaState.PurchaseOrderId)));
 		await ServiceBus.SendAsync(loadBeerInStock, cancellationToken);
 	}
 
-	public Task HandleAsync(BeerLoadedInStock @event, CancellationToken cancellationToken = new())
+	public async Task HandleAsync(BeerLoadedInStock @event, CancellationToken cancellationToken = new())
 	{
-		return Task.CompletedTask;
+		var correlationId = new Guid(@event.UserProperties.FirstOrDefault(u => u.Key.Equals("CorrelationId")).Value.ToString()!);
+		if (correlationId.Equals(Guid.Empty))
+			return;
+
+		var sagaState = await Repository.GetByIdAsync<BeersReceivedSagaState>(correlationId);
+		sagaState.FinishedAt = DateTime.UtcNow;
+		await Repository.SaveAsync(correlationId, sagaState);
 	}
 }
