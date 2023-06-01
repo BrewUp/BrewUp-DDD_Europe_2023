@@ -11,7 +11,8 @@ public class BeerService : WarehouseBaseService, IBeerService
 	{
 	}
 
-	public async Task<BeerId> AddBeerAsync(BeerId beerId, BeerName beerName, CancellationToken cancellationToken = default)
+	public async Task<BeerId> AddBeerAsync(BeerId beerId, BeerName beerName,
+		CancellationToken cancellationToken = default)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
@@ -33,7 +34,7 @@ public class BeerService : WarehouseBaseService, IBeerService
 		}
 	}
 
-	public async Task LoadBeerInStockAsync(BeerId beerId, Stock stock, CancellationToken cancellationToken = default)
+	public async Task LoadBeerInStockAsync(BeerId beerId, Stock stock, Price price, CancellationToken cancellationToken = default)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
@@ -44,6 +45,7 @@ public class BeerService : WarehouseBaseService, IBeerService
 				return;
 
 			beer.UpdateStock(stock);
+			beer.UpdatePrice(price);
 			await Persister.UpdateAsync(beer, cancellationToken);
 		}
 		catch (Exception ex)

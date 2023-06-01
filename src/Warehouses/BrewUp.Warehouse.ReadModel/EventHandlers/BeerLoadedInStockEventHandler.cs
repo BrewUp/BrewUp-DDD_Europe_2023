@@ -15,6 +15,6 @@ public sealed class BeerLoadedInStockEventHandler : DomainEventHandlerBase<BeerL
 
 	public override async Task HandleAsync(BeerLoadedInStock @event, CancellationToken cancellationToken = new())
 	{
-		await _beerService.LoadBeerInStockAsync(@event.BeerId, @event.Stock, cancellationToken);
+		await _beerService.LoadBeerInStockAsync(@event.BeerId, @event.Stock, @event.Price, cancellationToken);
 	}
 }

@@ -7,11 +7,12 @@ namespace BrewUp.Warehouses.Domain.Entities;
 
 public sealed class Beer : AggregateRoot
 {
-	private BeerName _beerName;
+	//private BeerName _beerName;
 
 	private IEnumerable<StockMovement> _movements;
 
 	private Stock _stock;
+	private Price _price;
 
 	internal Beer()
 	{
@@ -30,13 +31,13 @@ public sealed class Beer : AggregateRoot
 	private void Apply(BeerCreated @event)
 	{
 		Id = @event.BeerId;
-		_beerName = @event.BeerName;
+		//_beerName = @event.BeerName;
 		_movements = Enumerable.Empty<StockMovement>();
 		_stock = new Stock(0);
+		_price = new Price(0, "EUR");
 	}
 
 	#region LoadInStock
-
 	internal void LoadBeerInStock(BeerId beerId, Stock stock, Price price, PurchaseOrderId purchaseOrderId,
 		Guid correlationId)
 	{
@@ -55,11 +56,9 @@ public sealed class Beer : AggregateRoot
 
 	private void Apply(BeerLoadedInStock @event)
 	{
-		_movements = _movements.Append(new StockMovement(@event.PurchaseOrderId, @event.BeerId,
-			new Stock(@event.Stock.Value - _stock.Value)));
-
-		_stock = @event.Stock;
+		//_movements = _movements.Append(new StockMovement(@event.PurchaseOrderId, @event.BeerId,	new Stock(@event.Stock.Value - _stock.Value)));
+		//_stock = @event.Stock;
+		//_price = @event.Price;
 	}
-
 	#endregion
 }
