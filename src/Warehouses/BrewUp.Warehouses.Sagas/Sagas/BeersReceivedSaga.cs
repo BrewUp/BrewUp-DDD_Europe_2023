@@ -52,8 +52,11 @@ public sealed class BeersReceivedSaga : Saga<BeersReceivedSaga.BeersReceivedSaga
 			var beer = await _beerService.GetBeerAsync(orderLine.BeerId, cancellationToken);
 			if (beer != null)
 			{
-				//TODO: Update beer movements, with prices and quantities. We will simply updates stock and prices not movements.
-
+				var loadBeerInStock = new LoadBeerInStock(orderLine.BeerId, command.MessageId,
+					new Stock(orderLine.Quantity.Value),
+					new Price(orderLine.Price.Value, orderLine.Price.Currency),
+					command.PurchaseOrderId);
+				await ServiceBus.SendAsync(loadBeerInStock, cancellationToken);
 			}
 			else
 			{
