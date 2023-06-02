@@ -1,4 +1,9 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Amazon.Runtime.Internal.Transform;
+using Brewup.Purchases.ApplicationService.BindingModels;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
+using Muflone.Transport.RabbitMQ;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Brewup.Purchases.Rest.Modules;
 
@@ -16,16 +21,20 @@ public sealed class SwaggerModule : IModule
 	public IServiceCollection RegisterModule(WebApplicationBuilder builder)
 	{
 		builder.Services.AddEndpointsApiExplorer();
-		builder.Services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new OpenApiInfo()
+		builder.Services.AddSwaggerGen(setup =>
 		{
-			Description = "BrewUp API - Purchases REST Service",
-			Title = "BrewUp API - Purchases",
-			Version = "v1",
-			Contact = new OpenApiContact
+			setup.SchemaFilter<OrderSchemaFilter>();
+			setup.SwaggerDoc("v1", new OpenApiInfo()
 			{
-				Name = "BrewUp.API.Purchases"
-			}
-		}));
+				Description = "BrewUp API - Purchases REST Service",
+				Title = "BrewUp API - Purchases",
+				Version = "v1",
+				Contact = new OpenApiContact
+				{
+					Name = "BrewUp.API.Purchases"
+				}
+			});
+		});
 
 		return builder.Services;
 	}
@@ -33,5 +42,39 @@ public sealed class SwaggerModule : IModule
 	public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
 	{
 		return endpoints;
+	}
+}
+
+public class OrderSchemaFilter : ISchemaFilter
+{
+	public void Apply(OpenApiSchema schema, SchemaFilterContext context)
+	{
+		if (context.Type == typeof(Order))
+		{
+			schema.Example = new OpenApiObject
+			{
+				["Id"] = new OpenApiString(Guid.NewGuid().ToString()),
+				["SupplierId"] = new OpenApiString(Guid.NewGuid().ToString()),
+				["Date"] = new OpenApiDate(DateTime.Today),
+				["Lines"] = new OpenApiArray
+				{
+					new OpenApiObject
+					{
+						["ProductId"] = new OpenApiString(Guid.NewGuid().ToString()),
+						["Title"] = new OpenApiString("Muflone IPA"),
+						["Quantity"] = new OpenApiObject()
+						{
+							["Value"] = new OpenApiDouble(10),
+							["UnitOfMeasure"] = new OpenApiString("N.")
+						},
+						["Price"] = new OpenApiObject()
+						{
+							["Value"] = new OpenApiDouble(7),
+							["Currency"] = new OpenApiString("EUR")
+						}
+					}
+				}
+			};
+		}
 	}
 }

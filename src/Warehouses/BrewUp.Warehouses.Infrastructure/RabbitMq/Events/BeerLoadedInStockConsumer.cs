@@ -26,7 +26,7 @@ public sealed class BeerLoadedInStockConsumer : DomainEventsConsumerBase<BeerLoa
 		HandlersAsync = new List<IDomainEventHandlerAsync<BeerLoadedInStock>>
 		{
 			new BeerLoadedInStockEventHandler(loggerFactory, beerService),
-			new BeersReceivedSaga(serviceBus, sagaRepository, loggerFactory)
+			new BeersReceivedSaga(serviceBus, sagaRepository, beerService, loggerFactory)
 		};
 	}
 }

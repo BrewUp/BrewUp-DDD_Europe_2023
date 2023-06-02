@@ -1,7 +1,6 @@
 ﻿using Brewup.Purchases.ApplicationService.Validators;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using System.Threading;
 
 namespace Brewup.Purchases.ApplicationService.Endpoints;
 

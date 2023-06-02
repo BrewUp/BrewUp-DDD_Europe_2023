@@ -1,4 +1,5 @@
 ﻿using BrewUp.Warehouses.Messages.Commands;
+using BrewUp.Warehouses.ReadModel.Services;
 using BrewUp.Warehouses.Sagas.Sagas;
 using Microsoft.Extensions.Logging;
 using Muflone.Messages.Commands;
@@ -16,11 +17,12 @@ public sealed class StartBeersReceiveConsumer : CommandConsumerBase<StartBeersRe
 
 	public StartBeersReceiveConsumer(IServiceBus serviceBus,
 		ISagaRepository sagaRepository,
+		IBeerService beerService,
 		IRepository repository,
 		IMufloneConnectionFactory mufloneConnectionFactory,
 		RabbitMQReference rabbitMQReference,
 		ILoggerFactory loggerFactory) : base(repository, mufloneConnectionFactory, rabbitMQReference, loggerFactory)
 	{
-		HandlerAsync = new BeersReceivedSaga(serviceBus, sagaRepository, loggerFactory);
+		HandlerAsync = new BeersReceivedSaga(serviceBus, sagaRepository, beerService, loggerFactory);
 	}
 }

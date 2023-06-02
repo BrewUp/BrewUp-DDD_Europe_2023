@@ -34,7 +34,8 @@ public class BeerService : WarehouseBaseService, IBeerService
 		}
 	}
 
-	public async Task LoadBeerInStockAsync(BeerId beerId, Stock stock, Price price, CancellationToken cancellationToken = default)
+	public async Task LoadBeerInStockAsync(BeerId beerId, Stock stock, Price price,
+		CancellationToken cancellationToken = default)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
@@ -53,5 +54,11 @@ public class BeerService : WarehouseBaseService, IBeerService
 			Console.WriteLine(ex);
 			throw;
 		}
+	}
+
+	public async Task<BeerJson> GetBeerAsync(BeerId beerId, CancellationToken cancellationToken = default)
+	{
+		var beer = await Persister.GetByIdAsync<Beer>(beerId.ToString(), cancellationToken);
+		return (beer != null) ? beer.ToJson() : null;
 	}
 }
