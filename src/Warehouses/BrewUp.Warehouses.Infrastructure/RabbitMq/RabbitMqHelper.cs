@@ -64,19 +64,19 @@ public static class RabbitMqHelper
 				serviceProvider.GetRequiredService<ISagaRepository>(),
 				repository!,
 				mufloneConnectionFactory,
-				rabbitMQReference with { QueueCommandsName = nameof(StartBeersReceivedSaga) },
+				rabbitMQReference with { QueueCommandsName = $"saga.{nameof(StartBeersReceivedSaga)}" },
 				loggerFactory),
 
 			new BeerCreatedSagaConsumer(serviceProvider.GetRequiredService<IServiceBus>(),
 				serviceProvider.GetRequiredService<ISagaRepository>(),
 				mufloneConnectionFactory,
-				rabbitMQReference with { QueueEventsName = nameof(BeerCreated) },
+				rabbitMQReference with { QueueEventsName = $"saga.{nameof(BeerCreated)}" },
 				loggerFactory),
 
 			new BeerLoadedInStockSagaConsumer(serviceProvider.GetRequiredService<IServiceBus>(),
 				serviceProvider.GetRequiredService<ISagaRepository>(),
 				mufloneConnectionFactory,
-				rabbitMQReference with { QueueEventsName = nameof(BeerLoadedInStock) },
+				rabbitMQReference with { QueueEventsName = $"saga.{nameof(BeerLoadedInStock)}" },
 				loggerFactory)
 		});
 
