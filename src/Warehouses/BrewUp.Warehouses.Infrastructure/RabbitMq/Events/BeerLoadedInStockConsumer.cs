@@ -1,7 +1,7 @@
 ﻿using BrewUp.Warehouses.Messages.Events;
 using BrewUp.Warehouses.ReadModel.EventHandlers;
 using BrewUp.Warehouses.ReadModel.Services;
-using BrewUp.Warehouses.Sagas.Sagas;
+using BrewUp.Warehouses.Sagas;
 using Microsoft.Extensions.Logging;
 using Muflone.Messages.Events;
 using Muflone.Persistence;
@@ -18,9 +18,7 @@ public sealed class BeerLoadedInStockConsumer : DomainEventsConsumerBase<BeerLoa
 {
 	protected override IEnumerable<IDomainEventHandlerAsync<BeerLoadedInStock>> HandlersAsync { get; }
 
-	public BeerLoadedInStockConsumer(IServiceBus serviceBus,
-		ISagaRepository sagaRepository,
-		IBeerService beerService,
+	public BeerLoadedInStockConsumer(IBeerService beerService,
 		IMufloneConnectionFactory mufloneConnectionFactory,
 		RabbitMQReference rabbitMQReference,
 		ILoggerFactory loggerFactory) : base(mufloneConnectionFactory, rabbitMQReference, loggerFactory)
@@ -28,12 +26,11 @@ public sealed class BeerLoadedInStockConsumer : DomainEventsConsumerBase<BeerLoa
 		HandlersAsync = new List<IDomainEventHandlerAsync<BeerLoadedInStock>>
 		{
 			new BeerLoadedInStockEventHandler(loggerFactory, beerService)
-			//new BeersReceivedSaga(serviceBus, sagaRepository, loggerFactory)
 		};
 	}
 }
 
-public sealed class BeerLoadedInStockSagaConsumer : SagaEventConsumerBase<BeerCreated>
+public sealed class BeerLoadedInStockSagaConsumer : SagaEventConsumerBase<BeerLoadedInStock>
 {
 	public BeerLoadedInStockSagaConsumer(
 		IServiceBus serviceBus,
@@ -45,5 +42,5 @@ public sealed class BeerLoadedInStockSagaConsumer : SagaEventConsumerBase<BeerCr
 		HandlerAsync = new BeersReceivedSaga(serviceBus, sagaRepository, loggerFactory);
 	}
 
-	protected override ISagaEventHandlerAsync<BeerCreated> HandlerAsync { get; }
+	protected override ISagaEventHandlerAsync<BeerLoadedInStock> HandlerAsync { get; }
 }

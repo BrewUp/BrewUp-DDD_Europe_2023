@@ -1,5 +1,5 @@
 ﻿using BrewUp.Warehouses.Messages.Commands;
-using BrewUp.Warehouses.Sagas.Sagas;
+using BrewUp.Warehouses.Sagas;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
 using Muflone.Saga;
