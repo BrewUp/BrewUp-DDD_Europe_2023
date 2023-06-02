@@ -20,7 +20,7 @@ to run tests:
 
 Same thing for the warehouse service, enter folder `warehouse` and run the following command to start the project:
 
-    dotnet run --project .\Brewup.Warehouse.Rest\
+    dotnet run --project .\Brewup.Warehouses.Rest\
 
 after that, open a browser and go to `http://localhost:5043/swagger` to see the swagger documentation and test the endpoints
 
@@ -31,4 +31,4 @@ to run tests:
 
 ### From Visual Studio 2022 (Community edition and greater versions)
 
-Just open the solution files in folders `purchases` and `warehouse` and press F5
+Just open the solution files in folders `purchases` and `warehouses` and press F5
