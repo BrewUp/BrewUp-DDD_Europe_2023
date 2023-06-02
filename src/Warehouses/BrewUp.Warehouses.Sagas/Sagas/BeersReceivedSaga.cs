@@ -1,14 +1,14 @@
 ﻿using BrewUp.Warehouses.Messages.Commands;
 using BrewUp.Warehouses.Messages.Events;
 using BrewUp.Warehouses.ReadModel.Services;
+using BrewUp.Warehouses.SharedKernel.DomainIds;
+using BrewUp.Warehouses.SharedKernel.Dtos;
 using Microsoft.Extensions.Logging;
+using Muflone.Messages.Commands;
+using Muflone.Messages.Events;
 using Muflone.Persistence;
 using Muflone.Saga;
 using Muflone.Saga.Persistence;
-using BrewUp.Warehouses.SharedKernel.DomainIds;
-using BrewUp.Warehouses.SharedKernel.Dtos;
-using Muflone.Messages.Commands;
-using Muflone.Messages.Events;
 
 namespace BrewUp.Warehouses.Sagas.Sagas;
 
@@ -28,7 +28,6 @@ public sealed class BeersReceivedSaga : Saga<BeersReceivedSaga.BeersReceivedSaga
 		public DateTime StartedAt { get; set; } = DateTime.MinValue;
 		public DateTime FinishedAt { get; set; } = DateTime.MinValue;
 	}
-
 
 	public BeersReceivedSaga(IServiceBus serviceBus, ISagaRepository repository, IBeerService beerService, ILoggerFactory loggerFactory)
 		: base(serviceBus, repository, loggerFactory)
@@ -54,7 +53,7 @@ public sealed class BeersReceivedSaga : Saga<BeersReceivedSaga.BeersReceivedSaga
 			if (beer != null)
 			{
 				//TODO: Update beer movements, with prices and quantities. We will simply updates stock and prices not movements.
-		
+
 			}
 			else
 			{
