@@ -1,11 +1,8 @@
 ﻿using BrewUp.Warehouses.Messages.Commands;
-using BrewUp.Warehouses.Messages.Events;
 using BrewUp.Warehouses.ReadModel.Services;
-using BrewUp.Warehouses.SharedKernel.DomainIds;
 using BrewUp.Warehouses.SharedKernel.Dtos;
 using Microsoft.Extensions.Logging;
 using Muflone.Messages.Commands;
-using Muflone.Messages.Events;
 using Muflone.Persistence;
 using Muflone.Saga;
 using Muflone.Saga.Persistence;
@@ -13,9 +10,7 @@ using Muflone.Saga.Persistence;
 namespace BrewUp.Warehouses.Sagas.Sagas;
 
 public sealed class BeersReceivedSaga : Saga<BeersReceivedSaga.BeersReceivedSagaState>,
-	ICommandHandlerAsync<StartBeersReceivedSaga>,
-	IDomainEventHandlerAsync<BeerCreated>,
-	IDomainEventHandlerAsync<BeerLoadedInStock>
+	ICommandHandlerAsync<StartBeersReceivedSaga>
 {
 	private readonly IBeerService _beerService;
 
@@ -52,47 +47,12 @@ public sealed class BeersReceivedSaga : Saga<BeersReceivedSaga.BeersReceivedSaga
 			var beer = await _beerService.GetBeerAsync(orderLine.BeerId, cancellationToken);
 			if (beer != null)
 			{
-				var loadBeerInStock = new LoadBeerInStock(orderLine.BeerId, command.MessageId,
-					new Stock(orderLine.Quantity.Value),
-					new Price(orderLine.Price.Value, orderLine.Price.Currency),
-					command.PurchaseOrderId);
-				await ServiceBus.SendAsync(loadBeerInStock, cancellationToken);
+				// Load Beer in Stock
 			}
 			else
 			{
-				var createBeer = new CreateBeer(orderLine.BeerId, command.MessageId, orderLine.BeerName);
-				await ServiceBus.SendAsync(createBeer, cancellationToken);
+				// Create Beer
 			}
 		}
-	}
-
-	public async Task HandleAsync(BeerCreated @event, CancellationToken cancellationToken = new())
-	{
-		var correlationId =
-			new Guid(@event.UserProperties.FirstOrDefault(u => u.Key.Equals("CorrelationId")).Value.ToString()!);
-		if (correlationId.Equals(Guid.Empty))
-			return;
-
-		var sagaState = await Repository.GetByIdAsync<BeersReceivedSagaState>(correlationId);
-		var orderLine = sagaState.OrderLines.FirstOrDefault(o => o.BeerId.Equals(@event.BeerId));
-		if (orderLine == null)
-			return;
-
-		var loadBeerInStock = new LoadBeerInStock(@event.BeerId, correlationId, new Stock(orderLine.Quantity.Value),
-			new Price(orderLine.Price.Value, orderLine.Price.Currency),
-			new PurchaseOrderId(new Guid(sagaState.PurchaseOrderId)));
-		await ServiceBus.SendAsync(loadBeerInStock, cancellationToken);
-	}
-
-	public async Task HandleAsync(BeerLoadedInStock @event, CancellationToken cancellationToken = new())
-	{
-		var correlationId =
-			new Guid(@event.UserProperties.FirstOrDefault(u => u.Key.Equals("CorrelationId")).Value.ToString()!);
-		if (correlationId.Equals(Guid.Empty))
-			return;
-
-		var sagaState = await Repository.GetByIdAsync<BeersReceivedSagaState>(correlationId);
-		sagaState.FinishedAt = DateTime.UtcNow;
-		await Repository.SaveAsync(correlationId, sagaState);
 	}
 }
