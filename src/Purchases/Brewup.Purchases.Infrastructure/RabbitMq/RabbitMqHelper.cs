@@ -5,7 +5,6 @@ using Brewup.Purchases.Messages.Events;
 using Brewup.Purchases.ReadModel.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Muflone;
 using Muflone.Persistence;
 using Muflone.Transport.RabbitMQ;
 using Muflone.Transport.RabbitMQ.Abstracts;
@@ -34,10 +33,8 @@ public static class RabbitMqHelper
 		services.AddMufloneRabbitMQConsumers(new List<IConsumer>
 		{
 			new CreatePurchaseOrderConsumer(repository, mufloneConnectionFactory, rabbitMQReference with { QueueCommandsName = nameof(CreatePurchaseOrder) }, loggerFactory),
-			new ChangePurchaseOrderStatusToCompleteConsumer(repository, mufloneConnectionFactory, rabbitMQReference with { QueueCommandsName = nameof(ChangePurchaseOrderStatusToComplete) }, loggerFactory),
 
-			new PurchaseOrderCreatedConsumer(serviceProvider.GetRequiredService<IPurchaseOrderService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(PurchaseOrderCreated) }, loggerFactory),
-			new PurchaseOrderStatusChangedToCompleteConsumer(serviceProvider.GetRequiredService<IEventBus>(), serviceProvider.GetRequiredService<IPurchaseOrderService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(PurchaseOrderStatusChangedToComplete) }, loggerFactory)
+			new PurchaseOrderCreatedConsumer(serviceProvider.GetRequiredService<IPurchaseOrderService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(PurchaseOrderCreated) }, loggerFactory)
 		});
 		return services;
 	}

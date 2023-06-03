@@ -30,12 +30,6 @@ public class PurchasesModule : IModule
 			.Produces(StatusCodes.Status201Created)
 			.WithName("CreateOrder");
 
-		group.MapPost("/Order/{id}/complete", PurchasesEndpoints.HandleSetOrderStatusToComplete)
-			.Produces(StatusCodes.Status400BadRequest)
-			.Produces(StatusCodes.Status200OK)
-			.WithName("SetStatusToComplete");
-
-
 		return endpoints;
 	}
 }

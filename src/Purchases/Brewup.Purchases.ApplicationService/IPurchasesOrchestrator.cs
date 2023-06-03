@@ -2,6 +2,5 @@
 
 public interface IPurchasesOrchestrator
 {
-    Task<string> CreateOrderAsync(BindingModels.Order order, CancellationToken cancellationToken);
-    Task ChangeStatusToComplete(Guid id, CancellationToken cancellationToken);
+	Task<string> CreateOrderAsync(BindingModels.Order order, CancellationToken cancellationToken);
 }

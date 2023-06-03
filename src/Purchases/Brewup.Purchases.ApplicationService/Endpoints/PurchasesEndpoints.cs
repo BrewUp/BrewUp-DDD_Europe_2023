@@ -21,10 +21,4 @@ public static class PurchasesEndpoints
 
 		return Results.Created($"/api/v1/Order/{orderId}", orderId);
 	}
-
-	public static async Task<IResult> HandleSetOrderStatusToComplete(IPurchasesOrchestrator purchasesOrchestrator, Guid id, CancellationToken cancellationToken)
-	{
-		await purchasesOrchestrator.ChangeStatusToComplete(id, cancellationToken);
-		return Results.Ok();
-	}
 }
