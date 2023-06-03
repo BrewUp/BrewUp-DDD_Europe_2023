@@ -5,7 +5,6 @@ using Muflone.Messages.Events;
 using Muflone.Persistence;
 using Muflone.Transport.RabbitMQ.Abstracts;
 using Muflone.Transport.RabbitMQ.Consumers;
-using Muflone.Transport.RabbitMQ.Models;
 
 namespace BrewUp.Warehouses.Infrastructure.RabbitMq.Events;
 
@@ -13,9 +12,8 @@ public sealed class BeersReceivedConsumer : IntegrationEventsConsumerBase<BeersR
 {
 	protected override IEnumerable<IIntegrationEventHandlerAsync<BeersReceived>> HandlersAsync { get; }
 
-	public BeersReceivedConsumer(IServiceBus serviceBus, IMufloneConnectionFactory mufloneConnectionFactory,
-		RabbitMQReference rabbitMQReference, ILoggerFactory loggerFactory) : base(mufloneConnectionFactory,
-		rabbitMQReference, loggerFactory)
+	public BeersReceivedConsumer(IServiceBus serviceBus, IMufloneConnectionFactory connectionFactory, ILoggerFactory loggerFactory) 
+		: base(connectionFactory, loggerFactory)
 	{
 		HandlersAsync = new List<IIntegrationEventHandlerAsync<BeersReceived>>()
 		{

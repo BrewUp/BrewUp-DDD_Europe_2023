@@ -16,8 +16,4 @@
     <ProjectReference Include="..\BrewUp.Warehouses.ReadModel\BrewUp.Warehouses.ReadModel.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Sagas\" />
-  </ItemGroup>
-
 </Project>

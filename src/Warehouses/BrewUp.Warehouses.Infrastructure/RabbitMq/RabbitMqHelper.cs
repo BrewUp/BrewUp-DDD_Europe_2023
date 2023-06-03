@@ -1,4 +1,4 @@
-﻿using BrewUp.Warehouses.Infrastructure.RabbitMq.Commands;
+using BrewUp.Warehouses.Infrastructure.RabbitMq.Commands;
 using BrewUp.Warehouses.Infrastructure.RabbitMq.Events;
 using BrewUp.Warehouses.Messages.Commands;
 using BrewUp.Warehouses.Messages.Events;
@@ -20,32 +20,50 @@ public static class RabbitMqHelper
 		RabbitMqSettings rabbitMqSettings)
 	{
 		var serviceProvider = services.BuildServiceProvider();
-		var repository = serviceProvider.GetService<IRepository>();
+		var repository = serviceProvider.GetRequiredService<IRepository>();
 		var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
 
-		var rabbitMQConfiguration = new RabbitMQConfiguration(
-			rabbitMqSettings.Host,
-			rabbitMqSettings.Username,
-			rabbitMqSettings.Password,
-			rabbitMqSettings.ClientId);
-		var rabbitMQReference = new RabbitMQReference(rabbitMqSettings.ExchangeCommandName,
-			rabbitMqSettings.QueueCommandName, rabbitMqSettings.ExchangeEventName, rabbitMqSettings.QueueEventName);
-		var mufloneConnectionFactory = new MufloneConnectionFactory(rabbitMQConfiguration, loggerFactory!);
+		var rabbitMQConfiguration = new RabbitMQConfiguration(rabbitMqSettings.Host, rabbitMqSettings.Username, rabbitMqSettings.Password, rabbitMqSettings.ExchangeCommandName, rabbitMqSettings.ExchangeEventName);
+		var connectionFactory = new MufloneConnectionFactory(rabbitMQConfiguration, loggerFactory!);
 
-		services.AddMufloneTransportRabbitMQ(loggerFactory, rabbitMQConfiguration, rabbitMQReference);
+		services.AddMufloneTransportRabbitMQ(loggerFactory, rabbitMQConfiguration);
 
 		serviceProvider = services.BuildServiceProvider();
 		services.AddMufloneRabbitMQConsumers(new List<IConsumer>
 		{
-			new BeersReceivedConsumer(serviceProvider.GetRequiredService<IServiceBus>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(BeersReceived) }, loggerFactory),
+			new BeersReceivedConsumer(serviceProvider.GetRequiredService<IServiceBus>(),
+				connectionFactory,
+				loggerFactory),
 
-			new StartBeersReceiveConsumer(serviceProvider.GetRequiredService<IServiceBus>(), serviceProvider.GetRequiredService<ISagaRepository>(), serviceProvider.GetRequiredService<IBeerService>(),  repository!, mufloneConnectionFactory, rabbitMQReference with { QueueCommandsName = nameof(StartBeersReceivedSaga) }, loggerFactory),
+			new CreateBeerConsumer(repository!, connectionFactory,
+				loggerFactory),
 
-			new CreateBeerConsumer(repository!, mufloneConnectionFactory, rabbitMQReference with { QueueCommandsName = nameof(CreateBeer) }, loggerFactory),
-			new BeerCreatedConsumer(serviceProvider.GetRequiredService<IServiceBus>(), serviceProvider.GetRequiredService<ISagaRepository>(), serviceProvider.GetRequiredService<IBeerService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(BeerCreated) }, loggerFactory),
+			new BeerCreatedConsumer(serviceProvider.GetRequiredService<IBeerService>(),
+				connectionFactory,
+				loggerFactory),
 
-			new LoadBeerInStockConsumer(repository!, mufloneConnectionFactory, rabbitMQReference with { QueueCommandsName = nameof(LoadBeerInStock)}, loggerFactory),
-			new BeerLoadedInStockConsumer( serviceProvider.GetRequiredService<IServiceBus>(),  serviceProvider.GetRequiredService<ISagaRepository>(), serviceProvider.GetRequiredService<IBeerService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(BeerLoadedInStock) }, loggerFactory)
+			new LoadBeerInStockConsumer(repository!, connectionFactory,
+				loggerFactory),
+
+			new BeerLoadedInStockConsumer(serviceProvider.GetRequiredService<IBeerService>(),
+				connectionFactory,
+				loggerFactory),
+
+			new StartBeersReceivedSagaConsumer(serviceProvider.GetRequiredService<IServiceBus>(),
+				serviceProvider.GetRequiredService<ISagaRepository>(),
+				repository!,
+				connectionFactory,
+				loggerFactory),
+
+			new BeerCreatedSagaConsumer(serviceProvider.GetRequiredService<IServiceBus>(),
+				serviceProvider.GetRequiredService<ISagaRepository>(),
+				connectionFactory,
+				loggerFactory),
+
+			new BeerLoadedInStockSagaConsumer(serviceProvider.GetRequiredService<IServiceBus>(),
+				serviceProvider.GetRequiredService<ISagaRepository>(),
+				connectionFactory,
+				loggerFactory)
 		});
 
 		return services;
