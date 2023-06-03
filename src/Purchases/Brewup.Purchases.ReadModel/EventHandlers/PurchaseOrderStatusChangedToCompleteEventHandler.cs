@@ -18,8 +18,7 @@ public sealed class PurchaseOrderStatusChangedToCompleteEventHandler : DomainEve
 		_purchaseOrderService = purchaseOrderService;
 	}
 
-	public override async Task HandleAsync(PurchaseOrderStatusChangedToComplete @event,
-		CancellationToken cancellationToken = default)
+	public override async Task HandleAsync(PurchaseOrderStatusChangedToComplete @event, CancellationToken cancellationToken = default)
 	{
 		await _purchaseOrderService.UpdateStatusToComplete(new PurchaseOrderId(@event.AggregateId.Value));
 

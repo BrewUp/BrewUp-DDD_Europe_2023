@@ -5,7 +5,6 @@ using Muflone.Messages.Commands;
 using Muflone.Persistence;
 using Muflone.Transport.RabbitMQ.Abstracts;
 using Muflone.Transport.RabbitMQ.Consumers;
-using Muflone.Transport.RabbitMQ.Models;
 
 namespace Brewup.Purchases.Infrastructure.RabbitMq.Commands;
 
@@ -13,9 +12,8 @@ public sealed class CreatePurchaseOrderConsumer : CommandConsumerBase<CreatePurc
 {
 	protected override ICommandHandlerAsync<CreatePurchaseOrder> HandlerAsync { get; }
 
-	public CreatePurchaseOrderConsumer(IRepository repository, IMufloneConnectionFactory mufloneConnectionFactory,
-		RabbitMQReference rabbitMQReference, ILoggerFactory loggerFactory)
-		: base(repository, mufloneConnectionFactory, rabbitMQReference, loggerFactory)
+	public CreatePurchaseOrderConsumer(IRepository repository, IMufloneConnectionFactory connectionFactory, ILoggerFactory loggerFactory)
+		: base(repository, connectionFactory, loggerFactory)
 	{
 		HandlerAsync = new CreatePurchaseOrderHandlerAsync(repository, loggerFactory);
 	}

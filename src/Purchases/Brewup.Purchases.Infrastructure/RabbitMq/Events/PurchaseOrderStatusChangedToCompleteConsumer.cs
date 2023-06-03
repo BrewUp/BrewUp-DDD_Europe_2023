@@ -6,7 +6,6 @@ using Muflone;
 using Muflone.Messages.Events;
 using Muflone.Transport.RabbitMQ.Abstracts;
 using Muflone.Transport.RabbitMQ.Consumers;
-using Muflone.Transport.RabbitMQ.Models;
 
 namespace Brewup.Purchases.Infrastructure.RabbitMq.Events;
 
@@ -15,14 +14,12 @@ public sealed class
 {
 	protected override IEnumerable<IDomainEventHandlerAsync<PurchaseOrderStatusChangedToComplete>> HandlersAsync { get; }
 	
-	public PurchaseOrderStatusChangedToCompleteConsumer(IEventBus eventBus, IPurchaseOrderService purchaseOrderService,
-		IMufloneConnectionFactory mufloneConnectionFactory, RabbitMQReference rabbitMQReference,
-		ILoggerFactory loggerFactory) : base(mufloneConnectionFactory, rabbitMQReference, loggerFactory)
+	public PurchaseOrderStatusChangedToCompleteConsumer(IEventBus eventBus, IPurchaseOrderService purchaseOrderService, IMufloneConnectionFactory connectionFactory, ILoggerFactory loggerFactory) 
+		: base(connectionFactory, loggerFactory)
 	{
 		HandlersAsync = new List<IDomainEventHandlerAsync<PurchaseOrderStatusChangedToComplete>>
 		{
 			new PurchaseOrderStatusChangedToCompleteEventHandler(eventBus, loggerFactory, purchaseOrderService)
 		};
 	}
-
 }
