@@ -19,8 +19,8 @@ services:
          - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
       
      ports:
-         - 6113:1113
-         - 7113:2113
+         - 3113:1113
+         - 4113:2113
 
      volumes:
          - type: volume
@@ -47,8 +47,8 @@ services:
          - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
       
      ports:
-         - 4113:1113
-         - 5113:2113
+         - 5113:1113
+         - 6113:2113
 
      volumes:
          - type: volume

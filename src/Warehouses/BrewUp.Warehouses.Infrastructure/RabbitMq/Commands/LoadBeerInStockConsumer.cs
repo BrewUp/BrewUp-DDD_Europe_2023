@@ -5,7 +5,6 @@ using Muflone.Messages.Commands;
 using Muflone.Persistence;
 using Muflone.Transport.RabbitMQ.Abstracts;
 using Muflone.Transport.RabbitMQ.Consumers;
-using Muflone.Transport.RabbitMQ.Models;
 
 namespace BrewUp.Warehouses.Infrastructure.RabbitMq.Commands;
 
@@ -14,9 +13,8 @@ public sealed class LoadBeerInStockConsumer : CommandConsumerBase<LoadBeerInStoc
 	protected override ICommandHandlerAsync<LoadBeerInStock> HandlerAsync { get; }
 
 	public LoadBeerInStockConsumer(IRepository repository,
-		IMufloneConnectionFactory mufloneConnectionFactory,
-		RabbitMQReference rabbitMQReference,
-		ILoggerFactory loggerFactory) : base(repository, mufloneConnectionFactory, rabbitMQReference, loggerFactory)
+		IMufloneConnectionFactory connectionFactory,
+		ILoggerFactory loggerFactory) : base(repository, connectionFactory, loggerFactory)
 	{
 		HandlerAsync = new LoadBeerInStockCommandHandler(repository, loggerFactory);
 	}
