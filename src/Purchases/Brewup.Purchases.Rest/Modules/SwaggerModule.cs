@@ -1,8 +1,6 @@
-﻿using Amazon.Runtime.Internal.Transform;
-using Brewup.Purchases.ApplicationService.BindingModels;
+﻿using Brewup.Purchases.ApplicationService.BindingModels;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
-using Muflone.Transport.RabbitMQ;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Brewup.Purchases.Rest.Modules;
@@ -50,7 +48,6 @@ public class OrderSchemaFilter : ISchemaFilter
 	public void Apply(OpenApiSchema schema, SchemaFilterContext context)
 	{
 		if (context.Type == typeof(Order))
-		{
 			schema.Example = new OpenApiObject
 			{
 				["Id"] = new OpenApiString(Guid.NewGuid().ToString()),
@@ -75,6 +72,5 @@ public class OrderSchemaFilter : ISchemaFilter
 					}
 				}
 			};
-		}
 	}
 }

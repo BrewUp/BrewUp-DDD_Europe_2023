@@ -1,4 +1,4 @@
-using BrewUp.Warehouses.Messages.Events;
+﻿using BrewUp.Warehouses.Messages.Events;
 using BrewUp.Warehouses.ReadModel.EventHandlers;
 using BrewUp.Warehouses.ReadModel.Services;
 using BrewUp.Warehouses.Sagas;

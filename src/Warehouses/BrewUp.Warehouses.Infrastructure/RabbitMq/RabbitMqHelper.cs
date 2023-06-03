@@ -1,4 +1,4 @@
-using BrewUp.Warehouses.Infrastructure.RabbitMq.Commands;
+﻿using BrewUp.Warehouses.Infrastructure.RabbitMq.Commands;
 using BrewUp.Warehouses.Infrastructure.RabbitMq.Events;
 using BrewUp.Warehouses.Messages.Commands;
 using BrewUp.Warehouses.Messages.Events;

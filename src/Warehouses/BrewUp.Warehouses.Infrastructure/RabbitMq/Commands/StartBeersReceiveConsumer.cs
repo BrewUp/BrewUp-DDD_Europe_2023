@@ -1,4 +1,4 @@
-using BrewUp.Warehouses.Messages.Commands;
+﻿using BrewUp.Warehouses.Messages.Commands;
 using BrewUp.Warehouses.Sagas;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
@@ -15,7 +15,7 @@ public sealed class StartBeersReceivedSagaConsumer : SagaStartedByConsumerBase<S
 		
 		ILoggerFactory loggerFactory) : base(repository, connectionFactory, loggerFactory)
 	{
-		HandlerAsync = new BeersReceivedSaga(serviceBus, sagaRepository, beerService, loggerFactory);
+		HandlerAsync = new BeersReceivedSaga(serviceBus, sagaRepository, loggerFactory);
 	}
 
 	protected override ISagaStartedByAsync<StartBeersReceivedSaga> HandlerAsync { get; }
