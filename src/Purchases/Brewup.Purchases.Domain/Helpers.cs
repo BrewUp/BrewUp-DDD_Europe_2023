@@ -8,19 +8,18 @@ public static class Helpers
 	{
 		return lines.Select(x => new OrderLine
 		{
-			ProductId = x.ProductId,
+			BeerId = x.BeerId,
+			BeerName = new BeerName(x.Title),
 			Price = new Price { Currency = x.Price.Currency, Value = x.Price.Value },
-			Quantity = new Quantity { UnitOfMeasure = x.Quantity.UnitOfMeasure, Value = x.Quantity.Value },
-			Title = x.Title
+			Quantity = new Quantity { UnitOfMeasure = x.Quantity.UnitOfMeasure, Value = x.Quantity.Value }
 		}).ToList();
 	}
-
 
 	public static IEnumerable<Entities.OrderLine> ToEntities(this IEnumerable<OrderLine> lines)
 	{
 		return lines.Select(x => new Entities.OrderLine(
-			x.ProductId,
-			x.Title,
+			x.BeerId,
+			x.BeerName.Value,
 			new Entities.Quantity(x.Quantity.Value, x.Quantity.UnitOfMeasure),
 			new Entities.Price(x.Price.Value, x.Price.Currency))).ToList();
 	}
