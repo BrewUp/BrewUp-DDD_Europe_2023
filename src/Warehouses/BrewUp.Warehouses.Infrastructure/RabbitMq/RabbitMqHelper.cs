@@ -1,7 +1,5 @@
 ﻿using BrewUp.Warehouses.Infrastructure.RabbitMq.Commands;
 using BrewUp.Warehouses.Infrastructure.RabbitMq.Events;
-using BrewUp.Warehouses.Messages.Commands;
-using BrewUp.Warehouses.Messages.Events;
 using BrewUp.Warehouses.ReadModel.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,10 +19,11 @@ public static class RabbitMqHelper
 	{
 		var serviceProvider = services.BuildServiceProvider();
 		var repository = serviceProvider.GetRequiredService<IRepository>();
-		var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+		var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
 
-		var rabbitMQConfiguration = new RabbitMQConfiguration(rabbitMqSettings.Host, rabbitMqSettings.Username, rabbitMqSettings.Password, rabbitMqSettings.ExchangeCommandName, rabbitMqSettings.ExchangeEventName);
-		var connectionFactory = new MufloneConnectionFactory(rabbitMQConfiguration, loggerFactory!);
+		var rabbitMQConfiguration = new RabbitMQConfiguration(rabbitMqSettings.Host, rabbitMqSettings.Username,
+			rabbitMqSettings.Password, rabbitMqSettings.ExchangeCommandName, rabbitMqSettings.ExchangeEventName);
+		var connectionFactory = new MufloneConnectionFactory(rabbitMQConfiguration, loggerFactory);
 
 		services.AddMufloneTransportRabbitMQ(loggerFactory, rabbitMQConfiguration);
 

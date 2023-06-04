@@ -18,10 +18,11 @@ public static class RabbitMqHelper
 	{
 		var serviceProvider = services.BuildServiceProvider();
 		var repository = serviceProvider.GetRequiredService<IRepository>();
-		var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+		var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
 
-		var configuration = new RabbitMQConfiguration(rabbitMqSettings.Host, rabbitMqSettings.Username, rabbitMqSettings.Password, rabbitMqSettings.ExchangeCommandName, rabbitMqSettings.ExchangeEventName);
-		var connectionFactory = new MufloneConnectionFactory(configuration, loggerFactory!);
+		var configuration = new RabbitMQConfiguration(rabbitMqSettings.Host, rabbitMqSettings.Username,
+			rabbitMqSettings.Password, rabbitMqSettings.ExchangeCommandName, rabbitMqSettings.ExchangeEventName);
+		var connectionFactory = new MufloneConnectionFactory(configuration, loggerFactory);
 
 		services.AddMufloneTransportRabbitMQ(loggerFactory, configuration);
 
