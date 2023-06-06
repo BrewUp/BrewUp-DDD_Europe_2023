@@ -1,7 +1,5 @@
 ﻿using BrewUp.Warehouses.Infrastructure.RabbitMq.Commands;
 using BrewUp.Warehouses.Infrastructure.RabbitMq.Events;
-using BrewUp.Warehouses.Messages.Commands;
-using BrewUp.Warehouses.Messages.Events;
 using BrewUp.Warehouses.ReadModel.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,19 +25,20 @@ public static class RabbitMqHelper
 			rabbitMqSettings.Host,
 			rabbitMqSettings.Username,
 			rabbitMqSettings.Password,
-			rabbitMqSettings.ClientId);
-		var rabbitMQReference = new RabbitMQReference(rabbitMqSettings.ExchangeCommandName,
-			rabbitMqSettings.QueueCommandName, rabbitMqSettings.ExchangeEventName, rabbitMqSettings.QueueEventName);
+			new TimeSpan(0, 0, 0, 0, 200),
+			rabbitMqSettings.ExchangeCommandName,
+			rabbitMqSettings.ExchangeEventName);
+
 		var mufloneConnectionFactory = new MufloneConnectionFactory(rabbitMQConfiguration, loggerFactory!);
 
-		services.AddMufloneTransportRabbitMQ(loggerFactory, rabbitMQConfiguration, rabbitMQReference);
+		services.AddMufloneTransportRabbitMQ(loggerFactory, rabbitMQConfiguration);
 
 		serviceProvider = services.BuildServiceProvider();
 		services.AddMufloneRabbitMQConsumers(new List<IConsumer>
 		{
-			new BeersReceivedConsumer(serviceProvider.GetRequiredService<IServiceBus>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(BeersReceived) }, loggerFactory),
+			new BeersReceivedConsumer(serviceProvider.GetRequiredService<IServiceBus>(), mufloneConnectionFactory, loggerFactory),
 
-			new StartBeersReceiveConsumer(serviceProvider.GetRequiredService<IServiceBus>(), serviceProvider.GetRequiredService<ISagaRepository>(), serviceProvider.GetRequiredService<IBeerService>(),  repository!, mufloneConnectionFactory, rabbitMQReference with { QueueCommandsName = nameof(StartBeersReceivedSaga) }, loggerFactory)
+			new StartBeersReceiveConsumer(serviceProvider.GetRequiredService<IServiceBus>(), serviceProvider.GetRequiredService<ISagaRepository>(), serviceProvider.GetRequiredService<IBeerService>(),  repository!, mufloneConnectionFactory, loggerFactory)
 		});
 
 		return services;

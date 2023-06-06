@@ -7,7 +7,6 @@ using Muflone.Persistence;
 using Muflone.Saga.Persistence;
 using Muflone.Transport.RabbitMQ.Abstracts;
 using Muflone.Transport.RabbitMQ.Consumers;
-using Muflone.Transport.RabbitMQ.Models;
 
 namespace BrewUp.Warehouses.Infrastructure.RabbitMq.Commands;
 
@@ -20,8 +19,7 @@ public sealed class StartBeersReceiveConsumer : CommandConsumerBase<StartBeersRe
 		IBeerService beerService,
 		IRepository repository,
 		IMufloneConnectionFactory mufloneConnectionFactory,
-		RabbitMQReference rabbitMQReference,
-		ILoggerFactory loggerFactory) : base(repository, mufloneConnectionFactory, rabbitMQReference, loggerFactory)
+		ILoggerFactory loggerFactory) : base(repository, mufloneConnectionFactory, loggerFactory)
 	{
 		HandlerAsync = new BeersReceivedSaga(serviceBus, sagaRepository, beerService, loggerFactory);
 	}

@@ -1,7 +1,5 @@
 ﻿using Brewup.Purchases.Infrastructure.RabbitMq.Commands;
 using Brewup.Purchases.Infrastructure.RabbitMq.Events;
-using Brewup.Purchases.Messages.Commands;
-using Brewup.Purchases.Messages.Events;
 using Brewup.Purchases.ReadModel.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,20 +19,25 @@ public static class RabbitMqHelper
 		var repository = serviceProvider.GetRequiredService<IRepository>();
 		var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
 
-		var rabbitMQConfiguration = new RabbitMQConfiguration(rabbitMqSettings.Host, rabbitMqSettings.Username, rabbitMqSettings.Password, rabbitMqSettings.ClientId);
-		var rabbitMQReference = new RabbitMQReference(rabbitMqSettings.ExchangeCommandName, rabbitMqSettings.QueueCommandName, rabbitMqSettings.ExchangeEventName, rabbitMqSettings.QueueEventName);
+		var rabbitMQConfiguration = new RabbitMQConfiguration(
+			rabbitMqSettings.Host,
+			rabbitMqSettings.Username,
+			rabbitMqSettings.Password,
+			new TimeSpan(0, 0, 0, 0, 200),
+			rabbitMqSettings.ExchangeCommandName,
+			rabbitMqSettings.ExchangeEventName);
 		var mufloneConnectionFactory = new MufloneConnectionFactory(rabbitMQConfiguration, loggerFactory!);
 
-		services.AddMufloneTransportRabbitMQ(loggerFactory, rabbitMQConfiguration, rabbitMQReference);
+		services.AddMufloneTransportRabbitMQ(loggerFactory, rabbitMQConfiguration);
 
 		//It's important to build the previous services registrations or IEventBus and IPurchaseOrderService will be null 
 		//We need to improve this part. It's awful like it is right now
 		serviceProvider = services.BuildServiceProvider();
 		services.AddMufloneRabbitMQConsumers(new List<IConsumer>
 		{
-			new CreatePurchaseOrderConsumer(repository, mufloneConnectionFactory, rabbitMQReference with { QueueCommandsName = nameof(CreatePurchaseOrder) }, loggerFactory),
+			new CreatePurchaseOrderConsumer(repository, mufloneConnectionFactory, loggerFactory),
 
-			new PurchaseOrderCreatedConsumer(serviceProvider.GetRequiredService<IPurchaseOrderService>(), mufloneConnectionFactory, rabbitMQReference with { QueueEventsName = nameof(PurchaseOrderCreated) }, loggerFactory)
+			new PurchaseOrderCreatedConsumer(serviceProvider.GetRequiredService<IPurchaseOrderService>(), mufloneConnectionFactory, loggerFactory)
 		});
 		return services;
 	}
